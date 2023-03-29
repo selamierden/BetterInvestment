@@ -46,7 +46,6 @@ function submitForm(){
   
   pnlCell.innerHTML = pnl;
   actionCell.innerHTML = '<button onclick="deleteRow(this)" class="btn btn-outline-danger"><i class="bi bi-trash"></i>Sil</button>';
-  
   };
 
 function deleteRow(button) {
