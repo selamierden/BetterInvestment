@@ -8,17 +8,17 @@ function updatePrices() {
       // BTC fiyatını güncelle
       var btcPrice = data[0].current_price;
       var btcChange = data[0].price_change_percentage_10s;
-      $('#btc-price').text('$' + btcPrice.toLocaleString()).css('color', btcChange >= 0 ? 'green' : 'red');
+      $('#btc-price').text('$' + btcPrice.toLocaleString()).css('color', btcChange >= 0 ? 'green' : 'green');
 
       // ETH fiyatını güncelle
       var ethPrice = data[1].current_price;
       var ethChange = data[1].price_change_percentage_10s;
-      $('#eth-price').text('$' + ethPrice.toLocaleString()).css('color', ethChange >= 0 ? 'green' : 'red');
+      $('#eth-price').text('$' + ethPrice.toLocaleString()).css('color', ethChange >= 0 ? 'green' : 'green');
 
       // XRP fiyatını güncelle
       var xrpPrice = data[2].current_price;
       var xrpChange = data[2].price_change_percentage_10s;
-      $('#xrp-price').text('$' + xrpPrice.toLocaleString()).css('color', xrpChange >= 0 ? 'green' : 'red');
+      $('#xrp-price').text('$' + xrpPrice.toLocaleString()).css('color', xrpChange >= 0 ? 'green' : 'green');
     })
     .fail(function () {
       console.log('API isteği başarısız oldu');
