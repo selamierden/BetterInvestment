@@ -46,31 +46,31 @@
     </nav>
 
     <div class="container mt-5" style="color: white;">
-      <h1 class="mb-4">Trade Kayıtları</h1>
+      <h1 class="mb-4">Trade Records</h1>
       <form onsubmit="submitForm(); return false;" id="trade-form">
         <div class="form-group row">
             <div class="col-md-2">
-              <label for="coin">Kripto Para:</label>
+              <label for="coin">Cryptocurrency:</label>
               <input type="text" class="form-control" id="coin" name="coin" required>
             </div>
             <div class="col-md-2">
-              <label for="leverage">Kaldıraç Oranı:</label>
+              <label for="leverage">Leverage Ratio:</label>
               <input type="number" class="form-control" id="leverage" name="leverage" required>
             </div>
             <div class="col-md-2">
-              <label for="entry-price">Giriş Fiyatı:</label>
-              <input type="number" class="form-control" id="entry-price" name="entry-price" step="0.0001" required>
+              <label for="entry-price">Entry Price:</label>
+              <input type="number" class="form-control" id="entry-price" name="entry-price" step="0.01" required>
             </div>
             <div class="col-md-2">
-              <label for="exit-price">Çıkış Fiyatı:</label>
-              <input type="number" class="form-control" id="exit-price" name="exit-price" step="0.0001" required>
+              <label for="exit-price">Exit Price:</label>
+              <input type="number" class="form-control" id="exit-price" name="exit-price" step="0.01" required>
             </div>
             <div class="col-md-2">
-              <label for="profit-loss">Kazanç/Kayıp:</label>
-              <input type="number" class="form-control" id="profit-loss" name="profit-loss" step="0.0001" required>
+              <label for="profit-loss">P/L:</label>
+              <input type="number" class="form-control" id="profit-loss" name="profit-loss" step="0.01" required>
             </div>
             <div class="col-md-12 mt-3">
-              <button type="submit" class="btn btn-primary">Kaydet</button>
+              <button type="submit" class="btn btn-primary">Save</button>
             </div>
           </div>
       <hr>
@@ -79,17 +79,17 @@
       <table id="trade-table" class="table">
         <thead>
           <tr>
-            <th>Kripto Para</th>
-            <th>Kaldıraç Oranı</th>
-            <th>Giriş Fiyatı</th>
-            <th>Çıkış Fiyatı</th>
-            <th>Kazanç / Kayıp</th>
+            <th>Cryptocurrency</th>
+            <th>leverage Ratio</th>
+            <th>Entry Price</th>
+            <th>Exit Price</th>
+            <th>P/L</th>
           </tr>
         </thead>
         <tbody>
         </tbody>
       </table>
-      <button id="clearbtn" type="button" onclick="clearTable()" class="btn btn-danger">Tabloyu Temizle</button>
+      <button id="clearbtn" type="button" onclick="clearTable()" class="btn btn-danger">Clear Table</button>
     </div>
 
     

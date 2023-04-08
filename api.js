@@ -1,5 +1,5 @@
 // API adresi
-const apiUrl = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin%2Cethereum%2Cripple%2Ccardano%2Cdogecoin%2Csolana';
+const apiUrl = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin%2Cethereum%2Cripple%2Ccardano%2Cdogecoin%2Csolana%2Cbinancecoin%2Cdecentraland';
 
 const coins = [
   { id: 'bitcoin', selector: '#btc-price' },
@@ -8,6 +8,8 @@ const coins = [
   { id: 'cardano', selector: '#ada-price' },
   { id: 'dogecoin', selector: '#doge-price' },
   { id: 'solana', selector: '#sol-price' },
+  { id: 'binancecoin', selector: '#bnb-price' },
+  { id: 'decentraland', selector: '#mana-price' }
 ];
 
 function updatePrices() {

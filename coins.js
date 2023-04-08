@@ -19,6 +19,7 @@ function updateData() {
         const volume = coin.total_volume.toLocaleString();
 
         const row = document.createElement("tr");
+        row.classList.add("reg");
         row.innerHTML = `
           <td>${index + 1}</td>
           <td>${symbol}</td>

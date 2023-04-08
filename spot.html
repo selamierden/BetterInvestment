@@ -47,42 +47,42 @@
       <br> <br>
     </nav>
     <div class="container mt-5" style="color: aliceblue;">
-        <h1 class="mb-4">Spot Alım Kayıtları</h1>
+        <h1 class="mb-4">Spot Purchase Records</h1>
         <form>
           <div class="row mb-3">
             <div class="col-md-2">
-              <label for="coin">Kripto Para:</label>
+              <label for="coin">Cryptocurrency:</label>
               <input type="text" class="form-control" id="coin">
             </div>
             <div class="col-md-2">
-              <label for="amount">Miktar:</label>
+              <label for="amount">Amount:</label>
               <input type="number" class="form-control" id="miktar">
             </div>
             <div class="col-md-2">
-              <label for="firstprice">Alış Fiyatı:</label>
+              <label for="firstprice">Purchase Price:</label>
               <input type="number" class="form-control" id="firstprice">
             </div>
             <div class="col-md-2">
-                <label for="coin">Satış Fiyatı:</label>
+                <label for="coin">Sale Price:</label>
                 <input type="number" class="form-control" id="endprice">
               </div>
               <div class="col-md-2">
-                <label for="coin">Kayıp/Kazanç:</label>
+                <label for="coin">P/L:</label>
                 <input type="number" class="form-control" id="pnl">
               </div>
               <div class="col-md-2">
-                <button type="button" class="btn btn-primary mt-4" onclick="submitForm()">Kaydet</button>
+                <button type="button" class="btn btn-primary mt-4" onclick="submitForm()">Save</button>
               </div>
           </div>
         </form>
         <table id="table"  class="table" style="color: aliceblue;">
           <thead>
             <tr>
-              <th>Kripto Para</th>
-              <th>Miktar</th>
-              <th>Alış Fiyatı</th>
-              <th>Satış Fiyatı</th>
-              <th>Kayıp/Kazanç</th>
+              <th>Cryptocurrency</th>
+              <th>Amount</th>
+              <th>Purchase Price</th>
+              <th>Sale Price</th>
+              <th>P/L</th>
               <th></th>
             </tr>
           </thead>
@@ -90,7 +90,7 @@
             <!-- Buraya kaydedilen spot alımları eklenecek -->
           </tbody>
         </table>
-        <button id="clearbtn" type="button" onclick="clearTable()" class="btn btn-danger">Tabloyu Temizle</button>
+        <button id="clearbtn" type="button" onclick="clearTable()" class="btn btn-danger">Clear Table</button>
       </div>
 
     <script src="spot.js"></script>
