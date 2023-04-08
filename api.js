@@ -1,24 +1,24 @@
 // API adresi
-const apiUrl = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin%2Cethereum%2Cripple';
+const apiUrl = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin%2Cethereum%2Cripple%2Ccardano%2Cdogecoin%2Csolana';
 
-// Kripto para fiyatlarını güncelleme fonksiyonu
+const coins = [
+  { id: 'bitcoin', selector: '#btc-price' },
+  { id: 'ethereum', selector: '#eth-price' },
+  { id: 'ripple', selector: '#xrp-price' },
+  { id: 'cardano', selector: '#ada-price' },
+  { id: 'dogecoin', selector: '#doge-price' },
+  { id: 'solana', selector: '#sol-price' },
+];
+
 function updatePrices() {
   $.getJSON(apiUrl)
     .then(function (data) {
-      // BTC fiyatını güncelle
-      var btcPrice = data[0].current_price;
-      var btcChange = data[0].price_change_percentage_10s;
-      $('#btc-price').text('$' + btcPrice.toLocaleString()).css('color', btcChange >= 0 ? 'green' : 'green');
-
-      // ETH fiyatını güncelle
-      var ethPrice = data[1].current_price;
-      var ethChange = data[1].price_change_percentage_10s;
-      $('#eth-price').text('$' + ethPrice.toLocaleString()).css('color', ethChange >= 0 ? 'green' : 'green');
-
-      // XRP fiyatını güncelle
-      var xrpPrice = data[2].current_price;
-      var xrpChange = data[2].price_change_percentage_10s;
-      $('#xrp-price').text('$' + xrpPrice.toLocaleString()).css('color', xrpChange >= 0 ? 'green' : 'green');
+      coins.forEach(function (coin) {
+        var coinData = data.find(function (item) { return item.id === coin.id; });
+        var price = coinData.current_price;
+        var change = coinData.price_change_percentage_10s;
+        $(coin.selector).text('$' + price.toLocaleString()).css('color', change >= 0 ? 'green' : 'green');
+      });
     })
     .fail(function () {
       console.log('API isteği başarısız oldu');
