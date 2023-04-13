@@ -6,46 +6,43 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
   </head>
-  <body style="background-color: black;">
+  <body style="background-color:rgb(221, 226, 194);">
 
-    <nav class="navbar navbar-expand-lg navbar-light " style="background-color: #181A20;">
-      <a style="border-radius: 10px; color: white; padding: 7px;" class="navbar-brand animate__animated animate__fadeInDown" href="#">Better Investment</a>
-      <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" style="color: white;" href="anasayfa.html">Anasayfa <span class="sr-only">(current)</span></a>
+    <nav class="navbar navbar-expand-lg navbar-light " style="background-color: black;">
+      <img src="img/logo.png" style="border-radius: 10px;color:white; padding: 7px; text-shadow: 1px 1px 2px;  font-weight: 500; font-style: italic;"   class="navbar-brand animate__animated animate__fadeInDown" href="#"></img>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+        <ul class="navbar-nav mr-auto"  style="font-size: 20px; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;">
+          <li class="nav-item active">
+            <a class="nav-link"  style="color: white;" href="anasayfa.html">Home<span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" style="color: white;" href="coins.html">Coin List <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" style="color: white;" href="spot.html">Spot İşlemler</a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" style="color: white;" href="kaldirac.html">Kaldıraçlı İşlemler</a>
+            <a class="nav-link" style="color: white;" href="spot.html">Spot Transactions</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" style="color: white;" href="iletisim.html">İletişim</a>
+            <a class="nav-link" style="color: white;" href="kaldirac.html">Futures Transactions</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" style="color: white;" href="iletisim.html">Contact</a>
           </li>
         </ul>
-    
-        <ul class="navbar-nav">
+      </div>
+      <div style="position: absolute; right: 2%;">
+        <ul class="navbar-nav" style="font-size: 20px; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;">
           <li class="nav-item">
-            <a class="nav-link" style="color: white;" href="#" data-toggle="modal" data-target="#loginModal">Giriş Yap</a>
+            <a class="nav-link" style="color: white;" href="#" data-toggle="modal" data-target="#loginModal">Log In</a>
           </li>
           <li class="nav-item">
-            <a style="color: white; border-radius: 10px;" class="nav-link" href="#" data-toggle="modal" data-target="#signupModal">Üye Ol</a>
+            <a style="color: white; border-radius: 10px;" class="nav-link" href="#" data-toggle="modal" data-target="#signupModal">Register</a>
           </li>
         </ul>
       </div>
       <br> <br>
     </nav>
 
-    <div class="container mt-5" style="color: white;">
+    <div class="container mt-5" style="color: midnightblue; font-weight: 600;">
       <h1 class="mb-4">Trade Records</h1>
       <form onsubmit="submitForm(); return false;" id="trade-form">
         <div class="form-group row">
@@ -70,7 +67,7 @@
               <input type="number" class="form-control" id="profit-loss" name="profit-loss" step="0.01" required>
             </div>
             <div class="col-md-12 mt-3">
-              <button type="submit" class="btn btn-primary">Save</button>
+              <button type="submit" class="btn" style="background-color: midnightblue; color: white;">Save</button>
             </div>
           </div>
       <hr>

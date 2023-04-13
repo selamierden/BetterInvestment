@@ -11,49 +11,46 @@
     <title>Top 100 Cryptocurrency</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   </head>
-  <body style="background-color: black;">
-    <nav class="navbar navbar-expand-lg navbar-light " style="background-color: #181A20;">
-      <a style="border-radius: 10px; color: white; padding: 7px;" class="navbar-brand animate__animated animate__fadeInDown" href="#">Better Investment</a>
-      <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" style="color: white;" href="anasayfa.html">Anasayfa <span class="sr-only">(current)</span></a>
-          </li>
+  <body style="background-color:rgb(221, 226, 194); ">
+    <nav class="navbar navbar-expand-lg navbar-light " style="background-color: black;">
+      <img src="img/logo.png" style="border-radius: 10px;color:white; padding: 7px; text-shadow: 1px 1px 2px;  font-weight: 500; font-style: italic;"   class="navbar-brand animate__animated animate__fadeInDown" href="#"></img>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+        <ul class="navbar-nav mr-auto"  style="font-size: 20px; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;">
           <li class="nav-item active">
-            <a class="nav-link" style="color: white;" href="#">Coin List <span class="sr-only">(current)</span></a>
+            <a class="nav-link"  style="color: white;" href="anasayfa.html">Home<span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" style="color: white;" href="spot.html">Spot İşlemler</a>
+            <a class="nav-link" style="color: white;" href="coins.html">Coin List <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" style="color: white;" href="kaldirac.html">Kaldıraçlı İşlemler</a>
+            <a class="nav-link" style="color: white;" href="spot.html">Spot Transactions</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" style="color: white;" href="iletisim.html">İletişim</a>
+            <a class="nav-link" style="color: white;" href="kaldirac.html">Futures Transactions</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" style="color: white;" href="iletisim.html">Contact</a>
           </li>
         </ul>
-    
-        <ul class="navbar-nav">
+      </div>
+      <div style="position: absolute; right: 2%;">
+        <ul class="navbar-nav" style="font-size: 20px; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;">
           <li class="nav-item">
-            <a class="nav-link" style="color: white;" href="#" data-toggle="modal" data-target="#loginModal">Giriş Yap</a>
+            <a class="nav-link" style="color: white;" href="#" data-toggle="modal" data-target="#loginModal">Log In</a>
           </li>
           <li class="nav-item">
-            <a style=" color: white; border-radius: 10px;" class="nav-link" href="#" data-toggle="modal" data-target="#signupModal">Üye Ol</a>
+            <a style="color: white; border-radius: 10px;" class="nav-link" href="#" data-toggle="modal" data-target="#signupModal">Register</a>
           </li>
         </ul>
       </div>
       <br> <br>
     </nav>
     <div class="container">
-      <style>.reg:hover {background-color: yellow; color: black;}</style>
-      <h1 style="color: white;" class="my-4">Top 100 Cryptocurrency</h1>
+      <style>.reg:hover {background-color: midnightblue; color: white;}</style>
+      <h1 style="color: midnightblue;" class="my-4">Top 100 Cryptocurrency</h1>
       <table class="table table-bordered">
         <thead>
-          <tr style="color: white;">
+          <tr style="color: midnightblue; font-weight: 600;">
             <th>Rank</th>
             <th>Name</th>
             <th>Icon</th>
@@ -61,7 +58,7 @@
             <th>Volume</th>
           </tr>
         </thead>
-        <tbody style="color: white;" id="coin-data"></tbody>
+        <tbody style="color: midnightblue;" id="coin-data"></tbody>
       </table>
     </div>
     <div>
