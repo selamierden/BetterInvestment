@@ -9,3 +9,72 @@
     </div> 
     <p style="color: black;">bazi unlu düsünür ekonmistlerin ikonik sozleri</p> 
   </div>
+
+
+
+
+<!-- /// edit save row yedek>
+function editRow(button) {
+  var row = button.parentNode.parentNode;
+
+  row.cells[0].innerHTML = '<input id="editCoin" type="text" value="' + row.cells[0].innerHTML + '">';
+  row.cells[1].innerHTML = '<input id="editMiktar" type="text" value="' + row.cells[1].innerHTML + '">';
+  row.cells[2].innerHTML = '<input id="editFirstprice" type="text" value="' + row.cells[2].innerHTML + '">';
+  row.cells[3].innerHTML = '<input id="editEndprice" type="text" value="' + row.cells[3].innerHTML + '">';
+  row.cells[4].innerHTML = '<input id="editPnl" type="text" value="' + row.cells[4].innerHTML + '">';
+
+  // Store the row reference in a data attribute to use in the saveRow function
+  row.setAttribute('data-row-reference', 'true');
+
+  button.outerHTML = '<button onclick="saveRow(this)" class="btn btn-outline-primary"><i class="bi bi-save"></i>Save</button>';
+}
+
+function saveRow(button) {
+  var row = button.parentNode.parentNode;
+  var editedSpot = {
+    coin: document.getElementById('editCoin').value,
+    miktar: document.getElementById('editMiktar').value,
+    firstprice: document.getElementById('editFirstprice').value,
+    endprice: document.getElementById('editEndprice').value,
+    pnl: document.getElementById('editPnl').value
+  };
+
+  // Update the row with the edited values
+  row.cells[0].innerHTML = editedSpot.coin;
+  row.cells[1].innerHTML = editedSpot.miktar;
+  row.cells[2].innerHTML = editedSpot.firstprice;
+  row.cells[3].innerHTML = editedSpot.endprice;
+  row.cells[4].innerHTML = editedSpot.pnl;
+
+  if (editedSpot.pnl >= 0) {
+    row.cells[4].style.color = 'green';
+  } else {
+    row.cells[4].style.color = 'red';
+  }
+
+  // Remove the data attribute from the row
+  row.removeAttribute('data-row-reference');
+
+  // Update the localStorage
+  var spots = JSON.parse(localStorage.getItem("spots"));
+
+  // Find the index of the row being edited
+  var index = -1;
+  for (var i = 0; i < spots.length; i++) {
+    if (row.cells[0].innerHTML === spots[i].coin &&
+        row.cells[1].innerHTML === spots[i].miktar &&
+        row.cells[2].innerHTML === spots[i].firstprice &&
+        row.cells[3].innerHTML === spots[i].endprice &&
+        row.cells[4].innerHTML === spots[i].pnl) {
+      index = i;
+      break;
+    }
+  }
+
+  if (index > -1) {
+    spots.splice(index, 1, editedSpot); // Replace the old spot with the edited spot
+    localStorage.setItem("spots", JSON.stringify(spots));
+  }
+
+  button.outerHTML = `<button onClick="editRow(this)" class="btn btn-outline-success"><i class="bi bi-trash"></i>Edit</button>`;
+}

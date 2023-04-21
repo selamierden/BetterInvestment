@@ -7,15 +7,15 @@ function submitForm(){
   var pnl = document.getElementById("pnl").value;
   
   var spot = {
-  coin:coin,
-  miktar:miktar,
-  firstprice:firstprice,
-  endprice:endprice,
-  pnl:pnl
+    coin:coin,
+    miktar:miktar,
+    firstprice:firstprice,
+    endprice:endprice,
+    pnl:pnl
   };
   
   if(localStorage.getItem("spots") === null){
-  localStorage.setItem("spots", "[]");
+    localStorage.setItem("spots", "[]");
   }
   
   var spots = JSON.parse(localStorage.getItem("spots"));
@@ -30,7 +30,8 @@ function submitForm(){
   var firstpriceCell = row.insertCell(2);
   var endpriceCell = row.insertCell(3);
   var pnlCell = row.insertCell(4);
-  var actionCell = row.insertCell(5);
+  var editCell = row.insertCell(5);
+  var actionCell = row.insertCell(6);
   
   coinCell.innerHTML = coin;
   miktarCell.innerHTML = miktar;
@@ -39,14 +40,16 @@ function submitForm(){
   
   // Change text color based on pnl value
   if (pnl >= 0) {
-  pnlCell.style.color = 'green';
+    pnlCell.style.color = 'green';
   } else {
-  pnlCell.style.color = 'red';
+    pnlCell.style.color = 'red';
   }
   
   pnlCell.innerHTML = pnl;
+  editCell.innerHTML = `<button onClick="editRow(this)" class="btn btn-outline-success"><i class="bi bi-trash"></i>Edit</button>`;
   actionCell.innerHTML = '<button onclick="deleteRow(this)" class="btn btn-outline-danger"><i class="bi bi-trash"></i>Sil</button>';
-  };
+  
+};
 
 function deleteRow(button) {
   // Get the row that the button is in
@@ -75,45 +78,7 @@ function deleteRow(button) {
   spots.splice(index, 1);
   localStorage.setItem("spots", JSON.stringify(spots));
   }
-  };
-
-  window.onload = function() {
-    // Retrieve the spots from localStorage
-    var spots = JSON.parse(localStorage.getItem("spots"));
-  
-    // If there are spots in localStorage, add them to the table
-    if (spots !== null && spots.length > 0) {
-      var table = document.getElementById("table");
-  
-      for (var i = 0; i < spots.length; i++) {
-        var spot = spots[i];
-  
-        var row = table.insertRow(-1);
-        var coinCell = row.insertCell(0);
-        var miktarCell = row.insertCell(1);
-        var firstpriceCell = row.insertCell(2);
-        var endpriceCell = row.insertCell(3);
-        var pnlCell = row.insertCell(4);
-        var actionCell = row.insertCell(5);
-  
-        coinCell.innerHTML = spot.coin;
-        miktarCell.innerHTML = spot.miktar;
-        firstpriceCell.innerHTML = spot.firstprice;
-        endpriceCell.innerHTML = spot.endprice;
-  
-        // Change text color based on pnl value
-        if (spot.pnl >= 0) {
-          pnlCell.style.color = 'green';
-        } else {
-          pnlCell.style.color = 'red';
-        }
-  
-        pnlCell.innerHTML = spot.pnl;
-        actionCell.innerHTML = '<button onclick="deleteRow(this)" class="btn btn-outline-danger"><i class="bi bi-trash"></i>Sil</button>';
-      }
-    }
-  }
-  
+};
 
 function clearTable() {
   var table = document.getElementById("table");
@@ -123,4 +88,35 @@ function clearTable() {
   }
 
   localStorage.removeItem("spots");
-}
+};
+
+
+window.onload = function() {
+  // Get the spots data from localStorage and populate the table
+  var spots = JSON.parse(localStorage.getItem("spots"));
+  if (spots !== null) {
+    var table = document.getElementById("table");
+    for (var i = 0; i < spots.length; i++) {
+      var row = table.insertRow(-1);
+      var coinCell = row.insertCell(0);
+      var miktarCell = row.insertCell(1);
+      var firstpriceCell = row.insertCell(2);
+      var endpriceCell = row.insertCell(3);
+      var pnlCell = row.insertCell(4);
+      var editCell = row.insertCell(5);
+      var actionCell = row.insertCell(6);
+      coinCell.innerHTML = spots[i].coin;
+      miktarCell.innerHTML = spots[i].miktar;
+      firstpriceCell.innerHTML = spots[i].firstprice;
+      endpriceCell.innerHTML = spots[i].endprice;
+      pnlCell.innerHTML = spots[i].pnl;
+      if (spots[i].pnl >= 0) {
+        pnlCell.style.color = 'green';
+      } else {
+        pnlCell.style.color = 'red';
+      }
+      editCell.innerHTML = `<button onClick="editRow(this)" class="btn btn-outline-success"><i class="bi bi-trash"></i>Edit</button>`;
+      actionCell.innerHTML = '<button onclick="deleteRow(this)" class="btn btn-outline-danger"><i class="bi bi-trash"></i>Sil</button>';
+    }
+  }
+};
