@@ -207,11 +207,30 @@
             <button data-toggle="modal" data-target="#googleModal" class="btn  btn-block hvr-shrink" style="background-color: midnightblue; color: white; font-weight:600;"><i class="fab fa-google"></i> Continue with Google</button>
           </div>
         </div>
+        <div class="row justify-content-center my-3">
+          <div class="col-md-2">
+            <button id="play-pause-button" onclick="playPauseVideo()" class="btn btn-block hvr-shrink" style="color:white; font-weight:600;"><i class="fas fa-pause"></i></button>
+          </div>
+        </div>
       </div>
     </div>
   </div> 
 </div>
 
+<script>
+  var video = document.querySelector('video');
+  var playPauseButton = document.querySelector('#play-pause-button');
+  
+  function playPauseVideo() {
+    if (video.paused) {
+      video.play();
+      playPauseButton.innerHTML = '<i class="fas fa-pause"></i>';
+    } else {
+      video.pause();
+      playPauseButton.innerHTML = '<i class="fas fa-play"></i>';
+    }
+  }
+</script>
 
   <!--özlü söz-->
   <div class="jumbotron text-center bg-img" style="background-color:rgb(221, 226, 194); padding: 20px;">
