@@ -49,28 +49,9 @@ async function submitForm(){
   profitCell.innerHTML = profit.toFixed(2);
   profitRateCell.innerHTML = profitRate.toFixed(2) + "%";
 
-  // Add refresh button to current price cell
-  var refreshBtn = document.createElement("button");
-  refreshBtn.classList.add("btn", "btn-outline-primary", "mx-2");
-  refreshBtn.innerHTML = '<i class="bi bi-arrow-clockwise"></i> Yenile';
-  refreshBtn.onclick = async function() {
-    // Retrieve updated current price from API
-    var updatedResponse = await fetch(apiUrl);
-    var updatedData = await updatedResponse.json();
-    var updatedCurrentPrice = updatedData[coin.toLowerCase()].usd;
-    currentpriceCell.innerHTML = updatedCurrentPrice;
-    // Recalculate profit and profit rate using updated current price
-    var updatedProfit = (updatedCurrentPrice / firstprice) * miktar - miktar;
-    var updatedProfitRate = (updatedProfit / miktar) * 100;
-    profitCell.innerHTML = updatedProfit.toFixed(2);
-    profitRateCell.innerHTML = updatedProfitRate.toFixed(2) + "%";
-  };
-  currentpriceCell.appendChild(refreshBtn);
-
-  actionCell.innerHTML = '<button onclick="deleteRow(this)" class="btn btn-outline-danger"><i class="bi bi-trash"></i> Sil</button>';
+  actionCell.innerHTML = '<button onclick="deleteRow(this)" class="btn btn-outline-danger"><i class="bi bi-trash"></i>Sil</button>';
   
 };
-
 
 
 function deleteRow(button) {
