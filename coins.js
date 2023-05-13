@@ -15,7 +15,7 @@ function updateData() {
         const name = coin.name;
         const symbol = coin.symbol.toUpperCase();
         const image = coin.image;
-        const price = coin.current_price.toFixed(2);
+        const price = coin.current_price;
         const volume = coin.total_volume.toLocaleString();
 
         const row = document.createElement("tr");

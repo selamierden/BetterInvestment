@@ -1,17 +1,26 @@
-function submitForm(){
+async function submitForm(){
 
   var coin = document.getElementById("coin").value;
   var miktar = document.getElementById("miktar").value;
   var firstprice = document.getElementById("firstprice").value;
-  var endprice = document.getElementById("endprice").value;
-  var pnl = document.getElementById("pnl").value;
+  
+  // Retrieve the current price of the coin from Coingecko API
+  var apiUrl = "https://api.coingecko.com/api/v3/simple/price?ids=" + coin + "&vs_currencies=usd";
+  var response = await fetch(apiUrl);
+  var data = await response.json();
+  var currentPrice = data[coin.toLowerCase()].usd;
+
+  // Calculate the profit and profit rate
+  var profit = (currentPrice / firstprice) * miktar - miktar;
+  var profitRate = (profit / miktar) * 100;
   
   var spot = {
     coin:coin,
     miktar:miktar,
     firstprice:firstprice,
-    endprice:endprice,
-    pnl:pnl
+    currentPrice:currentPrice,
+    profit:profit,
+    profitRate:profitRate,
   };
   
   if(localStorage.getItem("spots") === null){
@@ -28,28 +37,31 @@ function submitForm(){
   var coinCell = row.insertCell(0);
   var miktarCell = row.insertCell(1);
   var firstpriceCell = row.insertCell(2);
-  var endpriceCell = row.insertCell(3);
-  var pnlCell = row.insertCell(4);
-  var editCell = row.insertCell(5);
+  var currentpriceCell = row.insertCell(3);
+  var profitCell = row.insertCell(4);
+  var profitRateCell = row.insertCell(5);
   var actionCell = row.insertCell(6);
   
   coinCell.innerHTML = coin;
   miktarCell.innerHTML = miktar;
   firstpriceCell.innerHTML = firstprice;
-  endpriceCell.innerHTML = endprice;
-  
-  // Change text color based on pnl value
-  if (pnl >= 0) {
-    pnlCell.style.color = 'green';
-  } else {
-    pnlCell.style.color = 'red';
-  }
-  
-  pnlCell.innerHTML = pnl;
-  editCell.innerHTML = `<button onClick="editRow(this)" class="btn btn-outline-success"><i class="bi bi-trash"></i>Edit</button>`;
+  currentpriceCell.innerHTML = currentPrice;
+  profitCell.innerHTML = profit.toFixed(2);
+  profitRateCell.innerHTML = profitRate.toFixed(2) + "%";
+
   actionCell.innerHTML = '<button onclick="deleteRow(this)" class="btn btn-outline-danger"><i class="bi bi-trash"></i>Sil</button>';
+
+  // Update current price every second
+  setInterval(async function() {
+    var response = await fetch(apiUrl);
+    var data = await response.json();
+    currentPrice = data[coin.toLowerCase()].usd;
+    currentpriceCell.innerHTML = currentPrice;
+  }, 1000);
   
-};
+}
+
+
 
 function deleteRow(button) {
   // Get the row that the button is in
@@ -59,8 +71,6 @@ function deleteRow(button) {
   var coin = row.cells[0].innerHTML;
   var miktar = row.cells[1].innerHTML;
   var firstprice = row.cells[2].innerHTML;
-  var endprice = row.cells[3].innerHTML;
-  var pnl = row.cells[4].innerHTML;
   
   // Remove the row from the table
   row.parentNode.removeChild(row);
@@ -69,7 +79,7 @@ function deleteRow(button) {
   var spots = JSON.parse(localStorage.getItem("spots"));
   var index = -1;
   for (var i = 0; i < spots.length; i++) {
-  if (spots[i].coin === coin && spots[i].miktar === miktar && spots[i].firstprice === firstprice && spots[i].endprice === endprice && spots[i].pnl === pnl) {
+  if (spots[i].coin === coin && spots[i].miktar === miktar && spots[i].firstprice === firstprice) {
   index = i;
   break;
   }
@@ -101,22 +111,39 @@ window.onload = function() {
       var coinCell = row.insertCell(0);
       var miktarCell = row.insertCell(1);
       var firstpriceCell = row.insertCell(2);
-      var endpriceCell = row.insertCell(3);
-      var pnlCell = row.insertCell(4);
-      var editCell = row.insertCell(5);
-      var actionCell = row.insertCell(6);
+      var actionCell = row.insertCell(3);
       coinCell.innerHTML = spots[i].coin;
       miktarCell.innerHTML = spots[i].miktar;
       firstpriceCell.innerHTML = spots[i].firstprice;
-      endpriceCell.innerHTML = spots[i].endprice;
-      pnlCell.innerHTML = spots[i].pnl;
-      if (spots[i].pnl >= 0) {
-        pnlCell.style.color = 'green';
-      } else {
-        pnlCell.style.color = 'red';
-      }
-      editCell.innerHTML = `<button onClick="editRow(this)" class="btn btn-outline-success"><i class="bi bi-trash"></i>Edit</button>`;
+      
       actionCell.innerHTML = '<button onclick="deleteRow(this)" class="btn btn-outline-danger"><i class="bi bi-trash"></i>Sil</button>';
     }
+  }
+  
+  // Get the latest prices from Coingecko and update the table
+  var rows = document.querySelectorAll('#table tr:not(:first-child)');
+  for (var i = 0; i < rows.length; i++) {
+    var coin = rows[i].cells[0].innerHTML;
+    var miktar = rows[i].cells[1].innerHTML;
+    var firstprice = rows[i].cells[2].innerHTML;
+    var currentPriceCell = rows[i].insertCell(3);
+    var profitCell = rows[i].insertCell(4);
+    var profitRateCell = rows[i].insertCell(5);
+    
+    fetch('https://api.coingecko.com/api/v3/simple/price?ids=' + coin.toLowerCase() + '&vs_currencies=usd')
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(data) {
+      var currentPrice = data[coin.toLowerCase()].usd;
+      var profit = (currentPrice / firstprice) * miktar - miktar;
+      var profitRate = (profit / miktar) * 100;
+      currentPriceCell.innerHTML = currentPrice;
+      profitCell.innerHTML = profit.toFixed(2);
+      profitRateCell.innerHTML = profitRate.toFixed(2) + "%";
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
   }
 };

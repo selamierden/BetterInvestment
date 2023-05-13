@@ -65,6 +65,14 @@
               <label for="firstprice">Purchase Price:</label>
               <input type="number" class="form-control" id="firstprice">
             </div>
+            <div class="col-md-2">
+                <label for="coin">Sale Price:</label>
+                <input type="number" class="form-control" id="endprice">
+              </div>
+              <div class="col-md-2">
+                <label for="coin">P/L:</label>
+                <input type="number" class="form-control" id="pnl">
+              </div>
               <div class="col-md-2">
                 <button type="button" class="btn mt-4" style="background-color: midnightblue; color: white;" onclick="submitForm()">Save</button>
               </div>
@@ -76,9 +84,8 @@
               <th>Cryptocurrency</th>
               <th>Amount</th>
               <th>Purchase Price</th>
-              <th>Current Price</th>
-              <th>Instant Profit</th>
-              <th>Instant Profit Rate</th>
+              <th>Sale Price</th>
+              <th>P/L</th>
               <th></th>
             </tr>
           </thead>
@@ -89,5 +96,5 @@
         <button id="clearbtn" type="button" onclick="clearTable()" class="btn btn-danger">Clear Table</button>
       </div>
 
-    <script src="spot.js"></script>
+    <script src="spotyedek.js"></script>
   </body>

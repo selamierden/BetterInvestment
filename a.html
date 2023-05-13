@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Kripto Para Kar Hesaplayıcı</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <h1 class="my-5 text-center">Kripto Para Kar Hesaplayıcı</h1>
+    <form id="cryptoForm">
+      <div class="form-group">
+        <label for="coinInput">Kripto Para:</label>
+        <input type="text" class="form-control" id="coinInput" placeholder="Örn. Bitcoin">
+      </div>
+      <div class="form-group">
+        <label for="priceInput">Alış Fiyatı:</label>
+        <input type="text" class="form-control" id="priceInput" placeholder="Örn. 50000">
+      </div>
+      <div class="form-group">
+        <label for="quantityInput">Miktar:</label>
+        <input type="text" class="form-control" id="quantityInput" placeholder="Örn. 0.5">
+      </div>
+      <button type="submit" class="btn btn-primary">Hesapla</button>
+    </form>
+    <div id="result" class="my-5"></div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    // Form submit işlemi
+    $('#cryptoForm').submit(async function (event) {
+      event.preventDefault();
+
+      const coin = $('#coinInput').val();
+      const price = parseFloat($('#priceInput').val());
+      const quantity = parseFloat($('#quantityInput').val());
+
+      // Coingecko API'ye istek at
+      const apiEndpoint = `https://api.coingecko.com/api/v3/coins/${coin.toLowerCase()}`;
+      try {
+        const response = await axios.get(apiEndpoint);
+        const currentPrice = response.data.market_data.current_price.usd;
+
+        // Hesaplamaları yap ve sonucu ekrana yazdır
+        const profit = (currentPrice - price) * quantity;
+        const profitPercentage = ((currentPrice - price) / price) * 100;
+        const resultHtml = `
+          <p>Son fiyat (${coin}): $${currentPrice.toFixed(2)}</p>
+          <p>Kâr: $${profit.toFixed(2)} (${profitPercentage.toFixed(2)}%)</p>
+        `;
+        $('#result').html(resultHtml);
+      } catch (error) {
+        $('#result').html('<p class="text-danger">Hata: Geçersiz kripto para adı</p>');
+      }
+    });
+  </script>
+</body>
+</html>
