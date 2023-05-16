@@ -57,7 +57,6 @@ async function submitForm(){
   
 };
 
-
 // Define a function to update the current price for a row
 async function refreshRow(button) {
   // Get the row containing the clicked button
@@ -92,7 +91,6 @@ refreshButtons.forEach(button => {
     refreshRow(this);
   });
 });
-
 
 function deleteRow(button) {
   // Get the row that the button is in
