@@ -41,6 +41,8 @@ async function submitForm(){
   var profitCell = row.insertCell(4);
   var profitRateCell = row.insertCell(5);
   var actionCell = row.insertCell(6);
+  var refreshCell = row.insertCell(7);
+
   
   coinCell.innerHTML = coin;
   miktarCell.innerHTML = miktar;
@@ -50,8 +52,46 @@ async function submitForm(){
   profitRateCell.innerHTML = profitRate.toFixed(2) + "%";
 
   actionCell.innerHTML = '<button onclick="deleteRow(this)" class="btn btn-outline-danger"><i class="bi bi-trash"></i>Sil</button>';
+  refreshCell.innerHTML = '<button onclick="refreshRow(this)" class="btn btn-outline-primary"><i class="bi bi-arrow-counterclockwise"></i>Yenile</button>';
+
   
 };
+
+
+// Define a function to update the current price for a row
+async function refreshRow(button) {
+  // Get the row containing the clicked button
+  var row = button.parentNode.parentNode;
+
+  // Retrieve the current price of the coin from Coingecko API
+  var coin = row.cells[0].innerHTML;
+  var apiUrl = "https://api.coingecko.com/api/v3/simple/price?ids=" + coin + "&vs_currencies=usd";
+  var response = await fetch(apiUrl);
+  var data = await response.json();
+  var currentPrice = data[coin.toLowerCase()].usd;
+
+  // Update the current price cell in the row
+  var currentpriceCell = row.cells[3];
+  currentpriceCell.innerHTML = currentPrice;
+
+  // Recalculate the profit and profit rate for the row
+  var miktar = parseFloat(row.cells[1].innerHTML);
+  var firstprice = parseFloat(row.cells[2].innerHTML);
+  var profit = (currentPrice / firstprice) * miktar - miktar;
+  var profitRate = (profit / miktar) * 100;
+  var profitCell = row.cells[4];
+  var profitRateCell = row.cells[5];
+  profitCell.innerHTML = profit.toFixed(2);
+  profitRateCell.innerHTML = profitRate.toFixed(2) + "%";
+}
+
+// Add an event listener to all "Refresh" buttons in the table
+var refreshButtons = document.querySelectorAll("#table button.btn-outline-primary");
+refreshButtons.forEach(button => {
+  button.addEventListener("click", function() {
+    refreshRow(this);
+  });
+});
 
 
 function deleteRow(button) {
@@ -103,11 +143,13 @@ window.onload = function() {
       var miktarCell = row.insertCell(1);
       var firstpriceCell = row.insertCell(2);
       var actionCell = row.insertCell(3);
+      var refreshCell = row.insertCell(4);
       coinCell.innerHTML = spots[i].coin;
       miktarCell.innerHTML = spots[i].miktar;
       firstpriceCell.innerHTML = spots[i].firstprice;
       
       actionCell.innerHTML = '<button onclick="deleteRow(this)" class="btn btn-outline-danger"><i class="bi bi-trash"></i>Sil</button>';
+      refreshCell.innerHTML = '<button onclick="refreshRow(this)" class="btn btn-outline-primary"><i class="bi bi-arrow-counterclockwise"></i>Yenile</button>';
     }
   }
   
