@@ -51,8 +51,8 @@ async function submitForm(){
   profitCell.innerHTML = profit.toFixed(2);
   profitRateCell.innerHTML = profitRate.toFixed(2) + "%";
 
-  actionCell.innerHTML = '<button onclick="deleteRow(this)" class="btn btn-outline-danger"><i class="bi bi-trash"></i>Sil</button>';
-  refreshCell.innerHTML = '<button onclick="refreshRow(this)" class="btn btn-outline-primary"><i class="bi bi-arrow-counterclockwise"></i>Yenile</button>';
+  actionCell.innerHTML = '<button onclick="deleteRow(this)" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>';
+  refreshCell.innerHTML = '<button onclick="refreshRow(this)" id="rbtn" class="btn btn-outline-primary"><i class="fas fa-sync-alt"></i></button>';
 
   
 };
@@ -82,6 +82,8 @@ async function refreshRow(button) {
   var profitRateCell = row.cells[5];
   profitCell.innerHTML = profit.toFixed(2);
   profitRateCell.innerHTML = profitRate.toFixed(2) + "%";
+
+  console.log(currentPrice);
 }
 
 // Add an event listener to all "Refresh" buttons in the table
@@ -142,14 +144,16 @@ window.onload = function() {
       var firstpriceCell = row.insertCell(2);
       var actionCell = row.insertCell(3);
       var refreshCell = row.insertCell(4);
+      
       coinCell.innerHTML = spots[i].coin;
       miktarCell.innerHTML = spots[i].miktar;
       firstpriceCell.innerHTML = spots[i].firstprice;
       
-      actionCell.innerHTML = '<button onclick="deleteRow(this)" class="btn btn-outline-danger"><i class="bi bi-trash"></i>Sil</button>';
-      refreshCell.innerHTML = '<button onclick="refreshRow(this)" class="btn btn-outline-primary"><i class="bi bi-arrow-counterclockwise"></i>Yenile</button>';
+      actionCell.innerHTML = '<button onclick="deleteRow(this)" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>';
+      refreshCell.innerHTML = '<button onclick="refreshRow(this)" id="rbtn" class="btn btn-outline-primary"><i class="fas fa-sync-alt"></i></button>';
     }
   }
+  
   
   // Get the latest prices from Coingecko and update the table
   var rows = document.querySelectorAll('#table tr:not(:first-child)');

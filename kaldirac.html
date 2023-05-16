@@ -53,23 +53,19 @@
         <div class="form-group row">
             <div class="col-md-2">
               <label for="coin">Cryptocurrency:</label>
-              <input type="text" class="form-control" id="coin" name="coin" required>
+              <input type="text" class="form-control" id="coin" name="coin">
+            </div>
+            <div class="col-md-2">
+              <label for="amount">Amount:</label>
+              <input type="number" class="form-control" id="amount" name="amount" step="0.01">
             </div>
             <div class="col-md-2">
               <label for="leverage">Leverage Ratio:</label>
-              <input type="number" class="form-control" id="leverage" name="leverage" required>
+              <input type="number" class="form-control" id="leverage" name="leverage">
             </div>
             <div class="col-md-2">
               <label for="entry-price">Entry Price:</label>
-              <input type="number" class="form-control" id="entry-price" name="entry-price" step="0.01" required>
-            </div>
-            <div class="col-md-2">
-              <label for="exit-price">Exit Price:</label>
-              <input type="number" class="form-control" id="exit-price" name="exit-price" step="0.01" required>
-            </div>
-            <div class="col-md-2">
-              <label for="profit-loss">P/L:</label>
-              <input type="number" class="form-control" id="profit-loss" name="profit-loss" step="0.01" required>
+              <input type="number" class="form-control" id="entry-price" name="entry-price" step="0.01">
             </div>
             <div class="col-md-12 mt-3">
               <button type="submit" class="btn" style="background-color: midnightblue; color: white;">Save</button>
@@ -82,10 +78,12 @@
         <thead>
           <tr>
             <th>Cryptocurrency</th>
-            <th>leverage Ratio</th>
+            <th>Amount</th>
+            <th>Leverage Ratio</th>
             <th>Entry Price</th>
-            <th>Exit Price</th>
-            <th>P/L</th>
+            <th>Current Price</th>
+            <th>Instant Profit</th>
+            <th>Instant Profit Rate</th>          
           </tr>
         </thead>
         <tbody>
