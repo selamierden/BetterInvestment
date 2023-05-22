@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.3.1/css/hover-min.css">
+  <link rel="stylesheet" href="login.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -95,37 +96,35 @@
 </div>
 
 <!-- Giriş Formu Modal -->
+
 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
-      <div class="modal-header text-white" style="background-color: midnightblue;">
-        <h5 class="modal-title" id="loginModalLabel">Login</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <div class="modal-header text-white" style="background-color: midnightblue; color: rgb(221, 226, 194);">
+        <h5 class="modal-title" id="loginModalLabel">Register</h5>
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <!-- Giriş Formu -->
         <form>
           <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" class="form-control" id="username" placeholder="Enter username">
+            <label for="loginEmail" class="font-weight-bold">E-Mail</label>
+            <input type="email" class="form-control" id="loginEmail" placeholder="E-Mail">
           </div>
           <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" placeholder="Enter password">
+            <label for="loginPassword" class="font-weight-bold">Password</label>
+            <input type="password" class="form-control" id="loginPassword" placeholder="Password">
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn" style="background-color: midnightblue; color: white;">Login</button>
+        <button type="submit" class="btn" style="background-color: midnightblue; color: white;">Register</button>
       </div>
     </div>
   </div>
 </div>
-
-
 <!-- APPLE MODAL-->
 <div class="modal fade" id="appleModal" tabindex="-1" role="dialog" aria-labelledby="appleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">

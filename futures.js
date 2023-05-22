@@ -82,8 +82,8 @@ async function refreshRow(button) {
   var entryPrice = parseFloat(row.cells[3].innerHTML);
   var profit = ((currentPrice / entryPrice) * amount - amount)*leverage;
   var profitRate = (profit / amount) * 100;
-  var profitCell = row.cells[4];
-  var profitRateCell = row.cells[5];
+  var profitCell = row.cells[5];
+  var profitRateCell = row.cells[6];
   profitCell.innerHTML = profit.toFixed(2);
   profitRateCell.innerHTML = profitRate.toFixed(2) + "%";
 
