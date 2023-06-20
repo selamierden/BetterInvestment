@@ -51,6 +51,18 @@ async function submitForm(){
   profitCell.innerHTML = profit.toFixed(2);
   profitRateCell.innerHTML = profitRate.toFixed(2) + "%";
 
+  if (profitRate > 0) {
+    profitRateCell.style.color = "green";
+  } else if (profitRate < 0) {
+    profitRateCell.style.color = "red";
+  }
+
+  if (profit > 0) {
+    profitCell.style.color = "green";
+  } else if (profitRate < 0) {
+    profitCell.style.color = "red";
+  }
+
   actionCell.innerHTML = '<button onclick="deleteRow(this)" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>';
   refreshCell.innerHTML = '<button onclick="refreshRow(this)" id="rbtn" class="btn btn-outline-primary"><i class="fas fa-sync-alt"></i></button>';
 
@@ -82,6 +94,18 @@ async function refreshRow(button) {
   var profitRateCell = row.cells[5];
   profitCell.innerHTML = profit.toFixed(2);
   profitRateCell.innerHTML = profitRate.toFixed(2) + "%";
+
+  if (profitRate > 0) {
+    profitRateCell.style.color = "green";
+  } else if (profitRate < 0) {
+    profitRateCell.style.color = "red";
+  }
+
+  if (profit > 0) {
+    profitCell.style.color = "green";
+  } else if (profit < 0) {
+    profitCell.style.color = "red";
+  }
 
   console.log(currentPrice);
 }
@@ -131,8 +155,7 @@ function clearTable() {
   localStorage.removeItem("spots");
 };
 
-
-window.onload = function() {
+window.onload = async function() {
   // Get the spots data from localStorage and populate the table
   var spots = JSON.parse(localStorage.getItem("spots"));
   if (spots !== null) {
@@ -142,43 +165,50 @@ window.onload = function() {
       var coinCell = row.insertCell(0);
       var miktarCell = row.insertCell(1);
       var firstpriceCell = row.insertCell(2);
-      var actionCell = row.insertCell(3);
-      var refreshCell = row.insertCell(4);
-      
+      var currentpriceCell = row.insertCell(3);
+      var profitCell = row.insertCell(4);
+      var profitRateCell = row.insertCell(5);
+      var actionCell = row.insertCell(6);
+      var refreshCell = row.insertCell(7);
+
       coinCell.innerHTML = spots[i].coin;
       miktarCell.innerHTML = spots[i].miktar;
       firstpriceCell.innerHTML = spots[i].firstprice;
-      
+
       actionCell.innerHTML = '<button onclick="deleteRow(this)" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>';
       refreshCell.innerHTML = '<button onclick="refreshRow(this)" id="rbtn" class="btn btn-outline-primary"><i class="fas fa-sync-alt"></i></button>';
-    }
-  }
-  
-  
-  // Get the latest prices from Coingecko and update the table
-  var rows = document.querySelectorAll('#table tr:not(:first-child)');
-  for (var i = 0; i < rows.length; i++) {
-    var coin = rows[i].cells[0].innerHTML;
-    var miktar = rows[i].cells[1].innerHTML;
-    var firstprice = rows[i].cells[2].innerHTML;
-    var currentPriceCell = rows[i].insertCell(3);
-    var profitCell = rows[i].insertCell(4);
-    var profitRateCell = rows[i].insertCell(5);
-    
-    fetch('https://api.coingecko.com/api/v3/simple/price?ids=' + coin.toLowerCase() + '&vs_currencies=usd')
-    .then(function(response) {
-      return response.json();
-    })
-    .then(function(data) {
+
+      var coin = spots[i].coin;
+      var miktar = spots[i].miktar;
+      var firstprice = spots[i].firstprice;
+
+      // Retrieve the current price of the coin from Coingecko API
+      var apiUrl = "https://api.coingecko.com/api/v3/simple/price?ids=" + coin + "&vs_currencies=usd";
+      var response = await fetch(apiUrl);
+      var data = await response.json();
       var currentPrice = data[coin.toLowerCase()].usd;
+
+      // Calculate the profit and profit rate
       var profit = (currentPrice / firstprice) * miktar - miktar;
       var profitRate = (profit / miktar) * 100;
-      currentPriceCell.innerHTML = currentPrice;
+
+      currentpriceCell.innerHTML = currentPrice;
       profitCell.innerHTML = profit.toFixed(2);
       profitRateCell.innerHTML = profitRate.toFixed(2) + "%";
-    })
-    .catch(function(error) {
-      console.log(error);
-    });
+
+      // Set the color of the profitRateCell based on the value
+      if (profitRate > 0) {
+        profitRateCell.style.color = "green";
+      } else if (profitRate < 0) {
+        profitRateCell.style.color = "red";
+      }
+
+      if (profit > 0) {
+        profitCell.style.color = "green";
+      } else if (profit < 0) {
+        profitCell.style.color = "red";
+      }
+    }
   }
 };
+
