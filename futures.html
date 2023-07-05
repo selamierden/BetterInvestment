@@ -4,10 +4,16 @@
     <meta charset="UTF-8">
     <title>Kripto Trade Kayıtları</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" integrity="sha384-Pd3qYoyGQbzH8aXYmIW+IeGKvOz/nJTk8ML+02jxK9qOvJ0HD1M8zZKYYd97T/6t" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.3.1/css/hover-min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
   </head>
   <body style="background-color:rgb(221, 226, 194);">
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: black;">
@@ -19,34 +25,54 @@
       </button>
       <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
         <ul class="navbar-nav" style="font-size: 20px; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;">
-        <li class="nav-item active">
-          <a class="nav-link hvr-underline-from-left" href="index.html" style="color: white;">Home<span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link hvr-underline-from-left" href="coins.html" style="color: white;">Coin List <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link hvr-underline-from-left" href="spot.html" style="color: white;">Spot Transactions</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link hvr-underline-from-left" href="futures.html" style="color: white;">Futures Transactions</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link hvr-underline-from-left" href="contact.html" style="color: white;">Contact</a>
-        </li>
+          <li class="nav-item active">
+            <a class="nav-link hvr-underline-from-left" href="index.html" style="color: white;">Home<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link hvr-underline-from-left" href="coins.html" style="color: white;">Coin List <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link hvr-underline-from-left" href="spot.html" style="color: white;">Spot Transactions</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link hvr-underline-from-left" href="futures.html" style="color: white;">Futures Transactions</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link hvr-underline-from-left" href="contact.html" style="color: white;">Contact</a>
+          </li>
         </ul>
       </div>
       <div class="ml-auto" style="font-size: 21px; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;">
         <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link hvr-underline-from-left" href="#" data-toggle="modal" data-target="#loginModal" style="color: white;">Log In</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link hvr-underline-from-left" href="#" data-toggle="modal" data-target="#signupModal" style="color: white; border-radius: 10px;">Register</a>
-        </li>
+          <li class="nav-item">
+            <a class="nav-link hvr-underline-from-left" data-toggle="modal" data-target="#infoModal" style="color: white;">Get Information  <i class="fas fa-info-circle"></i></a>
+          </li>
         </ul>
       </div>
-      </nav>
+    </nav>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="infoModalLabel">Information</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- Buraya metni ekleyin -->
+            <img src="" alt="Modal Image">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
    <div class="container mt-5" style="color: midnightblue; font-weight: 600;">
       <h1 class="mb-4">Trade Records</h1>
       <form onsubmit="submitForm(); return false;" id="trade-form">
