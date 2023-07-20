@@ -108,6 +108,8 @@ async function refreshRow(button) {
   }
 
   console.log(currentPrice);
+
+  updateBalance();
 }
 
 // Add an event listener to all "Refresh" buttons in the table
@@ -143,7 +145,35 @@ function deleteRow(button) {
   spots.splice(index, 1);
   localStorage.setItem("spots", JSON.stringify(spots));
   }
+
+  updateBalance();
 };
+
+function updateBalance() {
+  var spots = JSON.parse(localStorage.getItem("spots"));
+  var currentProfit = 0;
+  var currentBalance = 0;
+
+  if (spots !== null) {
+    for (var i = 0; i < spots.length; i++) {
+      currentBalance += parseFloat(spots[i].miktar); // Convert the miktar to a number
+    }
+  }
+
+  if (spots !== null) {
+    for (var i = 0; i < spots.length; i++) {
+      currentProfit += parseFloat(spots[i].profit); // Convert the profit to a number
+    }
+  }
+
+  var walletPrice = currentBalance + currentProfit;
+
+  console.log(walletPrice); // Correct the variable name here
+
+  var balanceDiv = document.getElementById("bakiye");
+  balanceDiv.textContent = "Current Balance : " + walletPrice.toFixed(3) + "$";
+}
+
 
 function clearTable() {
   var table = document.getElementById("table");
@@ -210,5 +240,7 @@ window.onload = async function() {
       }
     }
   }
+
+  updateBalance();
 };
 
