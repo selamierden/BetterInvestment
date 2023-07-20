@@ -42,6 +42,7 @@ async function submitForm(){
   var profitRateCell = row.insertCell(5);
   var actionCell = row.insertCell(6);
   var refreshCell = row.insertCell(7);
+  var finishCell = row.insertCell(8);
 
   
   coinCell.innerHTML = coin;
@@ -65,6 +66,7 @@ async function submitForm(){
 
   actionCell.innerHTML = '<button onclick="deleteRow(this)" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>';
   refreshCell.innerHTML = '<button onclick="refreshRow(this)" id="rbtn" class="btn btn-outline-primary"><i class="fas fa-sync-alt"></i></button>';
+  finishCell.innerHTML = '<button onclick="finishRow(this)" class="btn btn-success">Sold<i class="fas fa-check"></i></button>';
 
   updateBalance();
 };
@@ -222,6 +224,7 @@ window.onload = async function() {
       var profitRateCell = row.insertCell(5);
       var actionCell = row.insertCell(6);
       var refreshCell = row.insertCell(7);
+      var finishCell = row.insertCell(8);
 
       coinCell.innerHTML = spots[i].coin;
       miktarCell.innerHTML = spots[i].miktar;
@@ -229,6 +232,7 @@ window.onload = async function() {
 
       actionCell.innerHTML = '<button onclick="deleteRow(this)" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>';
       refreshCell.innerHTML = '<button onclick="refreshRow(this)" id="rbtn" class="btn btn-outline-primary"><i class="fas fa-sync-alt"></i></button>';
+      finishCell.innerHTML = '<button onclick="finishRow(this)" class="btn btn-success">Sold<i class="fas fa-check"></i></button>';
 
       var coin = spots[i].coin;
       var miktar = spots[i].miktar;
