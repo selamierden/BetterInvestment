@@ -66,7 +66,7 @@ async function submitForm(){
   actionCell.innerHTML = '<button onclick="deleteRow(this)" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>';
   refreshCell.innerHTML = '<button onclick="refreshRow(this)" id="rbtn" class="btn btn-outline-primary"><i class="fas fa-sync-alt"></i></button>';
 
-  
+  updateBalance();
 };
 
 // Define a function to update the current price for a row
@@ -193,7 +193,7 @@ function updateBalance() {
   balanceDiv.textContent = "Current Balance : " + walletPrice.toFixed(3) + "$";
 
   var pnlDiv = document.getElementById("pnl");
-  pnlDiv.textContent = "Current PNL : " + currentProfit.toFixed(2);
+  pnlDiv.textContent = "Current PNL : " + currentProfit.toFixed(2) + "$";
 }
 
 
