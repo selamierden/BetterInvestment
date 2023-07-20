@@ -107,6 +107,27 @@ async function refreshRow(button) {
     profitCell.style.color = "red";
   }
 
+  // Update the corresponding spot in localStorage
+  var spots = JSON.parse(localStorage.getItem("spots"));
+  var spotIndex = -1;
+  for (var i = 0; i < spots.length; i++) {
+    if (
+      spots[i].coin === coin &&
+      parseFloat(spots[i].miktar) === miktar &&
+      parseFloat(spots[i].firstprice) === firstprice
+    ) {
+      spotIndex = i;
+      break;
+    }
+  }
+
+  if (spotIndex !== -1) {
+    spots[spotIndex].currentPrice = currentPrice;
+    spots[spotIndex].profit = profit;
+    spots[spotIndex].profitRate = profitRate;
+    localStorage.setItem("spots", JSON.stringify(spots));
+  }
+
   console.log(currentPrice);
 
   updateBalance();
@@ -167,8 +188,6 @@ function updateBalance() {
   }
 
   var walletPrice = currentBalance + currentProfit;
-
-  console.log(walletPrice); // Correct the variable name here
 
   var balanceDiv = document.getElementById("bakiye");
   balanceDiv.textContent = "Current Balance : " + walletPrice.toFixed(3) + "$";
