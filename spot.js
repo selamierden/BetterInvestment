@@ -191,6 +191,9 @@ function updateBalance() {
 
   var balanceDiv = document.getElementById("bakiye");
   balanceDiv.textContent = "Current Balance : " + walletPrice.toFixed(3) + "$";
+
+  var pnlDiv = document.getElementById("pnl");
+  pnlDiv.textContent = "Current PNL : " + currentProfit.toFixed(2);
 }
 
 
