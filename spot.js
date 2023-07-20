@@ -135,6 +135,65 @@ async function refreshRow(button) {
   updateBalance();
 }
 
+function finishRow(button) {
+  // Get the row that the button is in
+  var row = button.parentNode.parentNode;
+  
+  // Get the spot data from the row cells
+  var coin = row.cells[0].innerHTML;
+  var miktar = row.cells[1].innerHTML;
+  var firstprice = row.cells[2].innerHTML;
+  var currentPrice = row.cells[3].innerHTML;
+  var profit = row.cells[4].innerHTML;
+  var profitRate = row.cells[5].innerHTML;
+  
+  // Create a new "sold" object with the sold data
+  var soldData = {
+    coin: coin,
+    miktar: miktar,
+    firstprice: firstprice,
+    currentPrice: currentPrice,
+    profit: profit,
+    profitRate: profitRate
+  };
+
+  // Get the "sold" array from localStorage or create an empty array if it doesn't exist
+  var soldArray = JSON.parse(localStorage.getItem("sold")) || [];
+
+  // Add the soldData object to the "sold" array
+  soldArray.push(soldData);
+
+  // Update the "sold" array in localStorage
+  localStorage.setItem("sold", JSON.stringify(soldArray));
+
+  // Remove the row from the table
+  row.parentNode.removeChild(row);
+
+  // Update the balance after selling
+  updateBalance();
+
+  // Remove the sold data from localStorage based on the row's data
+  var spots = JSON.parse(localStorage.getItem("spots"));
+  var index = -1;
+  for (var i = 0; i < spots.length; i++) {
+    if (
+      spots[i].coin === coin &&
+      spots[i].miktar === miktar &&
+      spots[i].firstprice === firstprice
+    ) {
+      index = i;
+      break;
+    }
+  }
+
+  if (index > -1) {
+    spots.splice(index, 1);
+    localStorage.setItem("spots", JSON.stringify(spots));
+  }
+}
+
+
+
 // Add an event listener to all "Refresh" buttons in the table
 var refreshButtons = document.querySelectorAll("#table button.btn-outline-primary");
 refreshButtons.forEach(button => {
