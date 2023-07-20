@@ -3,15 +3,15 @@ function submitForm(){
     var coin = document.getElementById("coin").value;
     var miktar = document.getElementById("miktar").value;
     var firstprice = document.getElementById("firstprice").value;
-    var endprice = document.getElementById("endprice").value;
-    var pnl = document.getElementById("pnl").value;
+    var currentPrice = document.getElementById("endprice").value;   //endprice
+    var profit = document.getElementById("pnl").value;
     
     var spot = {
       coin:coin,
       miktar:miktar,
       firstprice:firstprice,
-      endprice:endprice,
-      pnl:pnl
+      currentPrice:currentPrice,
+      profit:profit
     };
     
     if(localStorage.getItem("spots") === null){
@@ -28,23 +28,23 @@ function submitForm(){
     var coinCell = row.insertCell(0);
     var miktarCell = row.insertCell(1);
     var firstpriceCell = row.insertCell(2);
-    var endpriceCell = row.insertCell(3);
-    var pnlCell = row.insertCell(4);
+    var currentPriceCell = row.insertCell(3);
+    var profitCell = row.insertCell(4);
     var actionCell = row.insertCell(5);
     
     coinCell.innerHTML = coin;
     miktarCell.innerHTML = miktar;
     firstpriceCell.innerHTML = firstprice;
-    endpriceCell.innerHTML = endprice;
+    currentPriceCell.innerHTML = currentPrice;
     
     // Change text color based on pnl value
-    if (pnl >= 0) {
-      pnlCell.style.color = 'green';
+    if (profit >= 0) {
+      profitCell.style.color = 'green';
     } else {
-      pnlCell.style.color = 'red';
+      profitCell.style.color = 'red';
     }
     
-    pnlCell.innerHTML = pnl;
+    profitCell.innerHTML = profit;
     actionCell.innerHTML = '<button onclick="deleteRow(this)" class="btn btn-outline-danger"><i class="bi bi-trash"></i>Sil</button>';
     
   };
@@ -57,8 +57,8 @@ function submitForm(){
     var coin = row.cells[0].innerHTML;
     var miktar = row.cells[1].innerHTML;
     var firstprice = row.cells[2].innerHTML;
-    var endprice = row.cells[3].innerHTML;
-    var pnl = row.cells[4].innerHTML;
+    var currentPrice = row.cells[3].innerHTML;
+    var profit = row.cells[4].innerHTML;
     
     // Remove the row from the table
     row.parentNode.removeChild(row);
@@ -67,7 +67,7 @@ function submitForm(){
     var spots = JSON.parse(localStorage.getItem("spots"));
     var index = -1;
     for (var i = 0; i < spots.length; i++) {
-    if (spots[i].coin === coin && spots[i].miktar === miktar && spots[i].firstprice === firstprice && spots[i].endprice === endprice && spots[i].pnl === pnl) {
+    if (spots[i].coin === coin && spots[i].miktar === miktar && spots[i].firstprice === firstprice && spots[i].currentPrice === currentPrice && spots[i].profit === profit) {
     index = i;
     break;
     }
@@ -90,7 +90,7 @@ function submitForm(){
   
   
   window.onload = function() {
-    // Get the spots data from localStorage and populate the table
+    // Get the "spots" data from localStorage and populate the table
     var spots = JSON.parse(localStorage.getItem("spots"));
     if (spots !== null) {
       var table = document.getElementById("table");
@@ -99,21 +99,49 @@ function submitForm(){
         var coinCell = row.insertCell(0);
         var miktarCell = row.insertCell(1);
         var firstpriceCell = row.insertCell(2);
-        var endpriceCell = row.insertCell(3);
-        var pnlCell = row.insertCell(4);
+        var currentPriceCell = row.insertCell(3);
+        var profitCell = row.insertCell(4);
         var actionCell = row.insertCell(5);
         coinCell.innerHTML = spots[i].coin;
         miktarCell.innerHTML = spots[i].miktar;
         firstpriceCell.innerHTML = spots[i].firstprice;
-        endpriceCell.innerHTML = spots[i].endprice;
-        pnlCell.innerHTML = spots[i].pnl;
-        if (spots[i].pnl >= 0) {
-          pnlCell.style.color = 'green';
+        currentPriceCell.innerHTML = spots[i].currentPrice;
+        profitCell.innerHTML = spots[i].profit;
+        if (spots[i].profit >= 0) {
+          profitCell.style.color = 'green';
         } else {
-          pnlCell.style.color = 'red';
+          profitCell.style.color = 'red';
         }
         actionCell.innerHTML = '<button onclick="deleteRow(this)" class="btn btn-outline-danger"><i class="bi bi-trash"></i>Sil</button>';
       }
     }
+  
+    // Get the "sold" data from localStorage and populate the table
+    var sold = JSON.parse(localStorage.getItem("sold"));
+    if (sold !== null) {
+      var table = document.getElementById("table");
+      for (var i = 0; i < sold.length; i++) {
+        var row = table.insertRow(-1);
+        var coinCell = row.insertCell(0);
+        var miktarCell = row.insertCell(1);
+        var firstpriceCell = row.insertCell(2);
+        var currentPriceCell = row.insertCell(3);
+        var profitCell = row.insertCell(4);
+        var actionCell = row.insertCell(5);
+        coinCell.innerHTML = sold[i].coin;
+        miktarCell.innerHTML = sold[i].miktar;
+        firstpriceCell.innerHTML = sold[i].firstprice;
+        currentPriceCell.innerHTML = sold[i].currentPrice;
+        profitCell.innerHTML = sold[i].profit;
+        if (sold[i].profit >= 0) {
+          profitCell.style.color = 'green';
+        } else {
+          profitCell.style.color = 'red';
+        }
+        // actionCell.innerHTML = '<button onclick="deleteRow(this)" class="btn btn-outline-danger"><i class="bi bi-trash"></i>Sil</button>';
+      }
+    }
   };
+  
+  
   

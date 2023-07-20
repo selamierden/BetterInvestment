@@ -23,13 +23,13 @@ async function submitForm(){
     profitRate:profitRate,
   };
   
-  if(localStorage.getItem("spots") === null){
-    localStorage.setItem("spots", "[]");
+  if(localStorage.getItem("cspots") === null){
+    localStorage.setItem("cspots", "[]");
   }
   
-  var spots = JSON.parse(localStorage.getItem("spots"));
-  spots.push(spot);
-  localStorage.setItem("spots",JSON.stringify(spots));
+  var cspots = JSON.parse(localStorage.getItem("cspots"));
+  cspots.push(spot);
+  localStorage.setItem("cspots",JSON.stringify(cspots));
   
   var table = document.getElementById("table");
   var row = table.insertRow(-1);
@@ -110,13 +110,13 @@ async function refreshRow(button) {
   }
 
   // Update the corresponding spot in localStorage
-  var spots = JSON.parse(localStorage.getItem("spots"));
+  var cspots = JSON.parse(localStorage.getItem("cspots"));
   var spotIndex = -1;
-  for (var i = 0; i < spots.length; i++) {
+  for (var i = 0; i < cspots.length; i++) {
     if (
-      spots[i].coin === coin &&
-      parseFloat(spots[i].miktar) === miktar &&
-      parseFloat(spots[i].firstprice) === firstprice
+      cspots[i].coin === coin &&
+      parseFloat(cspots[i].miktar) === miktar &&
+      parseFloat(cspots[i].firstprice) === firstprice
     ) {
       spotIndex = i;
       break;
@@ -124,10 +124,10 @@ async function refreshRow(button) {
   }
 
   if (spotIndex !== -1) {
-    spots[spotIndex].currentPrice = currentPrice;
-    spots[spotIndex].profit = profit;
-    spots[spotIndex].profitRate = profitRate;
-    localStorage.setItem("spots", JSON.stringify(spots));
+    cspots[spotIndex].currentPrice = currentPrice;
+    cspots[spotIndex].profit = profit;
+    cspots[spotIndex].profitRate = profitRate;
+    localStorage.setItem("cspots", JSON.stringify(cspots));
   }
 
   console.log(currentPrice);
@@ -145,7 +145,7 @@ function finishRow(button) {
   var firstprice = row.cells[2].innerHTML;
   var currentPrice = row.cells[3].innerHTML;
   var profit = row.cells[4].innerHTML;
-  var profitRate = row.cells[5].innerHTML;
+  // var profitRate = row.cells[5].innerHTML;
   
   // Create a new "sold" object with the sold data
   var soldData = {
@@ -154,17 +154,17 @@ function finishRow(button) {
     firstprice: firstprice,
     currentPrice: currentPrice,
     profit: profit,
-    profitRate: profitRate
+    // profitRate: profitRate
   };
 
   // Get the "sold" array from localStorage or create an empty array if it doesn't exist
-  var soldArray = JSON.parse(localStorage.getItem("sold")) || [];
+  var soldArray = JSON.parse(localStorage.getItem("spots")) || [];
 
   // Add the soldData object to the "sold" array
   soldArray.push(soldData);
 
   // Update the "sold" array in localStorage
-  localStorage.setItem("sold", JSON.stringify(soldArray));
+  localStorage.setItem("spots", JSON.stringify(soldArray));
 
   // Remove the row from the table
   row.parentNode.removeChild(row);
@@ -173,13 +173,13 @@ function finishRow(button) {
   updateBalance();
 
   // Remove the sold data from localStorage based on the row's data
-  var spots = JSON.parse(localStorage.getItem("spots"));
+  var cspots = JSON.parse(localStorage.getItem("cspots"));
   var index = -1;
-  for (var i = 0; i < spots.length; i++) {
+  for (var i = 0; i < cspots.length; i++) {
     if (
-      spots[i].coin === coin &&
-      spots[i].miktar === miktar &&
-      spots[i].firstprice === firstprice
+      cspots[i].coin === coin &&
+      cspots[i].miktar === miktar &&
+      cspots[i].firstprice === firstprice
     ) {
       index = i;
       break;
@@ -187,8 +187,8 @@ function finishRow(button) {
   }
 
   if (index > -1) {
-    spots.splice(index, 1);
-    localStorage.setItem("spots", JSON.stringify(spots));
+    cspots.splice(index, 1);
+    localStorage.setItem("cspots", JSON.stringify(cspots));
   }
 }
 
@@ -215,36 +215,36 @@ function deleteRow(button) {
   row.parentNode.removeChild(row);
   
   // Remove the spot data from localStorage
-  var spots = JSON.parse(localStorage.getItem("spots"));
+  var cspots = JSON.parse(localStorage.getItem("cspots"));
   var index = -1;
-  for (var i = 0; i < spots.length; i++) {
-  if (spots[i].coin === coin && spots[i].miktar === miktar && spots[i].firstprice === firstprice) {
+  for (var i = 0; i < cspots.length; i++) {
+  if (cspots[i].coin === coin && cspots[i].miktar === miktar && cspots[i].firstprice === firstprice) {
   index = i;
   break;
   }
   }
   if (index > -1) {
-  spots.splice(index, 1);
-  localStorage.setItem("spots", JSON.stringify(spots));
+  cspots.splice(index, 1);
+  localStorage.setItem("cspots", JSON.stringify(cspots));
   }
 
   updateBalance();
 };
 
 function updateBalance() {
-  var spots = JSON.parse(localStorage.getItem("spots"));
+  var cspots = JSON.parse(localStorage.getItem("cspots"));
   var currentProfit = 0;
   var currentBalance = 0;
 
-  if (spots !== null) {
-    for (var i = 0; i < spots.length; i++) {
-      currentBalance += parseFloat(spots[i].miktar); // Convert the miktar to a number
+  if (cspots !== null) {
+    for (var i = 0; i < cspots.length; i++) {
+      currentBalance += parseFloat(cspots[i].miktar); // Convert the miktar to a number
     }
   }
 
-  if (spots !== null) {
-    for (var i = 0; i < spots.length; i++) {
-      currentProfit += parseFloat(spots[i].profit); // Convert the profit to a number
+  if (cspots !== null) {
+    for (var i = 0; i < cspots.length; i++) {
+      currentProfit += parseFloat(cspots[i].profit); // Convert the profit to a number
     }
   }
 
@@ -265,15 +265,15 @@ function clearTable() {
     table.deleteRow(-1);
   }
 
-  localStorage.removeItem("spots");
+  localStorage.removeItem("cspots");
 };
 
 window.onload = async function() {
   // Get the spots data from localStorage and populate the table
-  var spots = JSON.parse(localStorage.getItem("spots"));
-  if (spots !== null) {
+  var cspots = JSON.parse(localStorage.getItem("cspots"));
+  if (cspots !== null) {
     var table = document.getElementById("table");
-    for (var i = 0; i < spots.length; i++) {
+    for (var i = 0; i < cspots.length; i++) {
       var row = table.insertRow(-1);
       var coinCell = row.insertCell(0);
       var miktarCell = row.insertCell(1);
@@ -285,17 +285,17 @@ window.onload = async function() {
       var refreshCell = row.insertCell(7);
       var finishCell = row.insertCell(8);
 
-      coinCell.innerHTML = spots[i].coin;
-      miktarCell.innerHTML = spots[i].miktar;
-      firstpriceCell.innerHTML = spots[i].firstprice;
+      coinCell.innerHTML = cspots[i].coin;
+      miktarCell.innerHTML = cspots[i].miktar;
+      firstpriceCell.innerHTML = cspots[i].firstprice;
 
       actionCell.innerHTML = '<button onclick="deleteRow(this)" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>';
       refreshCell.innerHTML = '<button onclick="refreshRow(this)" id="rbtn" class="btn btn-outline-primary"><i class="fas fa-sync-alt"></i></button>';
       finishCell.innerHTML = '<button onclick="finishRow(this)" class="btn btn-success">Sold<i class="fas fa-check"></i></button>';
 
-      var coin = spots[i].coin;
-      var miktar = spots[i].miktar;
-      var firstprice = spots[i].firstprice;
+      var coin = cspots[i].coin;
+      var miktar = cspots[i].miktar;
+      var firstprice = cspots[i].firstprice;
 
       // Retrieve the current price of the coin from Coingecko API
       var apiUrl = "https://api.coingecko.com/api/v3/simple/price?ids=" + coin + "&vs_currencies=usd";

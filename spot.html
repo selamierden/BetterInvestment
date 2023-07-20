@@ -34,8 +34,14 @@
       <li class="nav-item">
         <a class="nav-link hvr-underline-from-left" href="coins.html" style="color: white;">Coin List <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link hvr-underline-from-left" href="spot.html" style="color: white;">Spot Transactions</a>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle hvr-underline-from-left" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white;">
+          Spot Transactions
+        </a>
+        <div style="background-color: blue;" class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="spot.html" style="color: black;">Current Transactions</a>
+          <a class="dropdown-item" href="spotyedek.html" style="color: black;">Transaction Records</a>
+        </div>
       </li>
       <li class="nav-item">
         <a class="nav-link hvr-underline-from-left" href="futures.html" style="color: white;">Futures Transactions</a>
@@ -48,11 +54,28 @@
   <div class="ml-auto" style="font-size: 21px; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link hvr-underline-from-left" data-toggle="modal" data-target="#infoModal" style="color: white;">Get Information  <i class="fas fa-info-circle"></i></a>
+        <a class="nav-link hvr-underline-from-left" href="#" data-toggle="modal" data-target="#loginModal" style="color: white;">Log In</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link hvr-underline-from-left" href="#" data-toggle="modal" data-target="#signupModal" style="color: white; border-radius: 10px;">Register</a>
       </li>
     </ul>
   </div>
 </nav>
+
+<script>
+  $(document).ready(function() {
+    $(".dropdown").hover(
+      function() {
+        $(this).find(".dropdown-menu").stop(true, true).delay(200).fadeIn(200);
+      },
+      function() {
+        $(this).find(".dropdown-menu").stop(true, true).delay(200).fadeOut(200);
+      }
+    );
+  });
+  </script>
+
 
 <!-- Modal -->
 <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true">
