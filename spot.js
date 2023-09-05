@@ -3,6 +3,12 @@ async function submitForm(){
   var coin = document.getElementById("coin").value;
   var miktar = document.getElementById("miktar").value;
   var firstprice = document.getElementById("firstprice").value;
+  var kaldirac = document.getElementById("kaldirac").value;
+
+  if(kaldirac === ""){
+    kaldirac = 1;
+  }
+
   
   // Retrieve the current price of the coin from Coingecko API
   var apiUrl = "https://api.coingecko.com/api/v3/simple/price?ids=" + coin + "&vs_currencies=usd";
@@ -11,13 +17,14 @@ async function submitForm(){
   var currentPrice = data[coin.toLowerCase()].usd;
 
   // Calculate the profit and profit rate
-  var profit = (currentPrice / firstprice) * miktar - miktar;
+  var profit = ((currentPrice / firstprice) * miktar - miktar) * kaldirac;
   var profitRate = (profit / miktar) * 100;
   
   var spot = {
     coin:coin,
     miktar:miktar,
     firstprice:firstprice,
+    kaldirac:kaldirac,
     currentPrice:currentPrice,
     profit:profit,
     profitRate:profitRate,
@@ -38,16 +45,18 @@ async function submitForm(){
   var miktarCell = row.insertCell(1);
   var firstpriceCell = row.insertCell(2);
   var currentpriceCell = row.insertCell(3);
-  var profitCell = row.insertCell(4);
-  var profitRateCell = row.insertCell(5);
-  var actionCell = row.insertCell(6);
-  var refreshCell = row.insertCell(7);
-  var finishCell = row.insertCell(8);
+  var kaldiracCell = row.insertCell(4);
+  var profitCell = row.insertCell(5);
+  var profitRateCell = row.insertCell(6);
+  var actionCell = row.insertCell(7);
+  var refreshCell = row.insertCell(8);
+  var finishCell = row.insertCell(9);
 
   
   coinCell.innerHTML = coin;
   miktarCell.innerHTML = miktar;
   firstpriceCell.innerHTML = firstprice;
+  kaldiracCell.innerHTML = kaldirac;
   currentpriceCell.innerHTML = currentPrice;
   profitCell.innerHTML = profit.toFixed(2);
   profitRateCell.innerHTML = profitRate.toFixed(2) + "%";
@@ -92,8 +101,8 @@ async function refreshRow(button) {
   var firstprice = parseFloat(row.cells[2].innerHTML);
   var profit = (currentPrice / firstprice) * miktar - miktar;
   var profitRate = (profit / miktar) * 100;
-  var profitCell = row.cells[4];
-  var profitRateCell = row.cells[5];
+  var profitCell = row.cells[5];
+  var profitRateCell = row.cells[6];
   profitCell.innerHTML = profit.toFixed(2);
   profitRateCell.innerHTML = profitRate.toFixed(2) + "%";
 
@@ -130,7 +139,6 @@ async function refreshRow(button) {
     localStorage.setItem("cspots", JSON.stringify(cspots));
   }
 
-  console.log(currentPrice);
 
   updateBalance();
 }
@@ -144,7 +152,8 @@ function finishRow(button) {
   var miktar = row.cells[1].innerHTML;
   var firstprice = row.cells[2].innerHTML;
   var currentPrice = row.cells[3].innerHTML;
-  var profit = row.cells[4].innerHTML;
+  var kaldirac = row.cells[4].innerHTML;
+  var profit = row.cells[5].innerHTML;
   // var profitRate = row.cells[5].innerHTML;
   
   // Create a new "sold" object with the sold data
@@ -152,6 +161,7 @@ function finishRow(button) {
     coin: coin,
     miktar: miktar,
     firstprice: firstprice,
+    kaldirac: kaldirac,
     currentPrice: currentPrice,
     profit: profit,
     // profitRate: profitRate
@@ -255,6 +265,7 @@ function updateBalance() {
 
   var pnlDiv = document.getElementById("pnl");
   pnlDiv.textContent = "Current PNL : " + currentProfit.toFixed(2) + "$";
+
 }
 
 
@@ -279,15 +290,17 @@ window.onload = async function() {
       var miktarCell = row.insertCell(1);
       var firstpriceCell = row.insertCell(2);
       var currentpriceCell = row.insertCell(3);
-      var profitCell = row.insertCell(4);
-      var profitRateCell = row.insertCell(5);
-      var actionCell = row.insertCell(6);
-      var refreshCell = row.insertCell(7);
-      var finishCell = row.insertCell(8);
+      var kaldiracCell = row.insertCell(4);
+      var profitCell = row.insertCell(5);
+      var profitRateCell = row.insertCell(6);
+      var actionCell = row.insertCell(7);
+      var refreshCell = row.insertCell(8);
+      var finishCell = row.insertCell(9);
 
       coinCell.innerHTML = cspots[i].coin;
       miktarCell.innerHTML = cspots[i].miktar;
       firstpriceCell.innerHTML = cspots[i].firstprice;
+      kaldiracCell.innerHTML = cspots[i].kaldirac;
 
       actionCell.innerHTML = '<button onclick="deleteRow(this)" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>';
       refreshCell.innerHTML = '<button onclick="refreshRow(this)" id="rbtn" class="btn btn-outline-primary"><i class="fas fa-sync-alt"></i></button>';
@@ -296,6 +309,7 @@ window.onload = async function() {
       var coin = cspots[i].coin;
       var miktar = cspots[i].miktar;
       var firstprice = cspots[i].firstprice;
+      var kaldirac = cspots[i].kaldirac;
 
       // Retrieve the current price of the coin from Coingecko API
       var apiUrl = "https://api.coingecko.com/api/v3/simple/price?ids=" + coin + "&vs_currencies=usd";
@@ -304,7 +318,7 @@ window.onload = async function() {
       var currentPrice = data[coin.toLowerCase()].usd;
 
       // Calculate the profit and profit rate
-      var profit = (currentPrice / firstprice) * miktar - miktar;
+      var profit = ((currentPrice / firstprice) * miktar - miktar) * kaldirac;
       var profitRate = (profit / miktar) * 100;
 
       currentpriceCell.innerHTML = currentPrice;
