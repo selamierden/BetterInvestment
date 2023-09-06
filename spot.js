@@ -99,7 +99,7 @@ async function refreshRow(button) {
   // Recalculate the profit and profit rate for the row
   var miktar = parseFloat(row.cells[1].innerHTML);
   var firstprice = parseFloat(row.cells[2].innerHTML);
-  var profit = (currentPrice / firstprice) * miktar - miktar;
+  var profit = ((currentPrice / firstprice) * miktar - miktar) * leverage;
   var profitRate = (profit / miktar) * 100;
   var profitCell = row.cells[5];
   var profitRateCell = row.cells[6];
