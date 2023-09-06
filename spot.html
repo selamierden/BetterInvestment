@@ -41,11 +41,8 @@
         </a>
         <div style="background-color: blue;" class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="spot.html" style="color: black;">Current Transactions</a>
-          <a class="dropdown-item" href="spotyedek.html" style="color: black;">Transaction Records</a>
+          <a class="dropdown-item" href="spotrec.html" style="color: black;">Transaction Records</a>
         </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link hvr-underline-from-left" href="futures.html" style="color: white;">Futures Transactions</a>
       </li>
       <li class="nav-item">
         <a class="nav-link hvr-underline-from-left" href="contact.html" style="color: white;">Contact</a>
@@ -102,7 +99,7 @@
     <div class="container mt-5" style="color: midnightblue; font-weight: 600;">
         <h1 class="mb-4">Spot Purchase Records</h1>
         <form>
-          <div class="row mb-3">
+          <div class="row mb-3" style="display: flex; align-items: flex-end;">
             <div class="col-md-2">
               <label for="coin">Cryptocurrency:</label>
               <input type="text" class="form-control" id="coin">
@@ -117,7 +114,7 @@
             </div>
             <div class="col-md-2">
               <label for="kaldirac">Leverage:</label>
-              <input placeholder="1" type="number" class="form-control" id="kaldirac">
+              <input placeholder="default : 1" type="number" class="form-control" id="kaldirac">
             </div>
               <div class="col-md-2">
                 <button type="button" class="btn mt-4" style="background-color: midnightblue; color: white;" onclick="submitForm()">Save</button>

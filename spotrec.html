@@ -18,6 +18,7 @@
 
   </head>
   <body style="background-color:rgb(221, 226, 194);">
+
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: black;">
       <a class="navbar-brand animate__animated animate__fadeInDown" href="#">
         <img src="img/etter.png" style="padding-top: 0px; padding-left: 16px; padding-bottom: 17px;" class="d-inline-block align-top" alt="">
@@ -41,9 +42,6 @@
               <a class="dropdown-item" href="spot.html" style="color: black;">Current Transactions</a>
               <a class="dropdown-item" href="spotyedek.html" style="color: black;">Transaction Records</a>
             </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link hvr-underline-from-left" href="futures.html" style="color: white;">Futures Transactions</a>
           </li>
           <li class="nav-item">
             <a class="nav-link hvr-underline-from-left" href="contact.html" style="color: white;">Contact</a>
@@ -78,7 +76,7 @@
     <div class="container mt-5" style="color: midnightblue; font-weight: 600;">
         <h1 class="mb-4">Spot Purchase Records</h1>
         <form>
-          <div class="row mb-3">
+          <div class="row mb-3" style="display: flex; align-items: flex-end;">
             <div class="col-md-2">
               <label for="coin">Cryptocurrency:</label>
               <input type="text" class="form-control" id="coin">
@@ -95,7 +93,11 @@
                 <label for="coin">Sale Price:</label>
                 <input type="number" class="form-control" id="endprice">
               </div>
-              <div class="col-md-2">
+              <div class="col-md-1">
+                <label for="coin">Leverage:</label>
+                <input type="number" class="form-control" id="leverage">
+              </div>
+              <div class="col-md-1">
                 <label for="coin">P/L:</label>
                 <input type="number" class="form-control" id="pnl">
               </div>
@@ -111,6 +113,7 @@
               <th>Amount</th>
               <th>Purchase Price</th>
               <th>Sale Price</th>
+              <th>Leverage</th>
               <th>P/L</th>
               <th></th>
             </tr>
@@ -120,7 +123,7 @@
           </tbody>
         </table>
         <button id="clearbtn" type="button" onclick="clearTable()" class="btn btn-danger">Clear Table</button>
-      </div>
+      </div><br>
 
-    <script src="spotyedek.js"></script>
+    <script src="spotrec.js"></script>
   </body>

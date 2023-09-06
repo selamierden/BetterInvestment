@@ -5,13 +5,15 @@ function submitForm(){
     var firstprice = document.getElementById("firstprice").value;
     var currentPrice = document.getElementById("endprice").value;   //endprice
     var profit = document.getElementById("pnl").value;
+    var leverage = document.getElementById("leverage").value;
     
     var spot = {
       coin:coin,
       miktar:miktar,
       firstprice:firstprice,
       currentPrice:currentPrice,
-      profit:profit
+      profit:profit,
+      leverage:leverage
     };
     
     if(localStorage.getItem("spots") === null){
@@ -29,13 +31,15 @@ function submitForm(){
     var miktarCell = row.insertCell(1);
     var firstpriceCell = row.insertCell(2);
     var currentPriceCell = row.insertCell(3);
-    var profitCell = row.insertCell(4);
-    var actionCell = row.insertCell(5);
+    var leverageCell = row.insertCell(4);
+    var profitCell = row.insertCell(5);
+    var actionCell = row.insertCell(6);
     
     coinCell.innerHTML = coin;
     miktarCell.innerHTML = miktar;
     firstpriceCell.innerHTML = firstprice;
     currentPriceCell.innerHTML = currentPrice;
+    leverageCell.innerHTML = leverage;
     
     // Change text color based on pnl value
     if (profit >= 0) {
@@ -58,7 +62,8 @@ function submitForm(){
     var miktar = row.cells[1].innerHTML;
     var firstprice = row.cells[2].innerHTML;
     var currentPrice = row.cells[3].innerHTML;
-    var profit = row.cells[4].innerHTML;
+    var leverage = row.cells[4].innerHTML
+    var profit = row.cells[5].innerHTML;
     
     // Remove the row from the table
     row.parentNode.removeChild(row);
@@ -67,7 +72,7 @@ function submitForm(){
     var spots = JSON.parse(localStorage.getItem("spots"));
     var index = -1;
     for (var i = 0; i < spots.length; i++) {
-    if (spots[i].coin === coin && spots[i].miktar === miktar && spots[i].firstprice === firstprice && spots[i].currentPrice === currentPrice && spots[i].profit === profit) {
+    if (spots[i].coin === coin && spots[i].miktar === miktar && spots[i].firstprice === firstprice && spots[i].currentPrice === currentPrice && spots[i].leverage === leverage && spots[i].profit === profit) {
     index = i;
     break;
     }
@@ -100,12 +105,14 @@ function submitForm(){
         var miktarCell = row.insertCell(1);
         var firstpriceCell = row.insertCell(2);
         var currentPriceCell = row.insertCell(3);
-        var profitCell = row.insertCell(4);
-        var actionCell = row.insertCell(5);
+        var leverageCell = row.insertCell(4);
+        var profitCell = row.insertCell(5);
+        var actionCell = row.insertCell(6);
         coinCell.innerHTML = spots[i].coin;
         miktarCell.innerHTML = spots[i].miktar;
         firstpriceCell.innerHTML = spots[i].firstprice;
         currentPriceCell.innerHTML = spots[i].currentPrice;
+        leverageCell.innerHTML = spots[i].leverage;
         profitCell.innerHTML = spots[i].profit;
         if (spots[i].profit >= 0) {
           profitCell.style.color = 'green';
@@ -126,12 +133,14 @@ function submitForm(){
         var miktarCell = row.insertCell(1);
         var firstpriceCell = row.insertCell(2);
         var currentPriceCell = row.insertCell(3);
-        var profitCell = row.insertCell(4);
-        var actionCell = row.insertCell(5);
+        var leverageCell = row.insertCell(4);
+        var profitCell = row.insertCell(5);
+        var actionCell = row.insertCell(6);
         coinCell.innerHTML = sold[i].coin;
         miktarCell.innerHTML = sold[i].miktar;
         firstpriceCell.innerHTML = sold[i].firstprice;
         currentPriceCell.innerHTML = sold[i].currentPrice;
+        leverageCell.innerHTML = sold[i].leverage;
         profitCell.innerHTML = sold[i].profit;
         if (sold[i].profit >= 0) {
           profitCell.style.color = 'green';

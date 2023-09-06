@@ -3,10 +3,17 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="Website Icon" type="png" href="img/btc.png">
-	  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="clear.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" integrity="sha384-Pd3qYoyGQbzH8aXYmIW+IeGKvOz/nJTk8ML+02jxK9qOvJ0HD1M8zZKYYd97T/6t" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.3.1/css/hover-min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <head>
       <style>
         .table-bordered, .table-bordered td, .table-bordered th {
@@ -33,11 +40,14 @@
         <li class="nav-item">
           <a class="nav-link hvr-underline-from-left" href="coins.html" style="color: white;">Coin List <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link hvr-underline-from-left" href="spot.html" style="color: white;">Spot Transactions</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link hvr-underline-from-left" href="futures.html" style="color: white;">Futures Transactions</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle hvr-underline-from-left" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white;">
+            Spot Transactions
+          </a>
+          <div style="background-color: blue;" class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="spot.html" style="color: black;">Current Transactions</a>
+            <a class="dropdown-item" href="spotrec.html" style="color: black;">Transaction Records</a>
+          </div>
         </li>
         <li class="nav-item">
           <a class="nav-link hvr-underline-from-left" href="contact.html" style="color: white;">Contact</a>
@@ -52,6 +62,19 @@
         </ul>
       </div>
       </nav>
+
+      <script>
+        $(document).ready(function() {
+          $(".dropdown").hover(
+            function() {
+              $(this).find(".dropdown-menu").stop(true, true).delay(200).fadeIn(200);
+            },
+            function() {
+              $(this).find(".dropdown-menu").stop(true, true).delay(200).fadeOut(200);
+            }
+          );
+        });
+        </script>
 
       <!-- Kayıt Ol Modal -->
 <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="signupModalLabel" aria-hidden="true">
