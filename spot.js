@@ -94,11 +94,15 @@ async function submitForm(){
 
 
 async function refreshRow(button) {
+  var yon = document.getElementById("longshort").value;
+  
 
   var row = button.parentNode.parentNode;
 
 
   var coin = row.cells[0].innerHTML;
+  var yon = row.cells[5].innerHTML;
+  var leverage = row.cells[4].innerHTML
   var apiUrl = "https://api.coingecko.com/api/v3/simple/price?ids=" + coin + "&vs_currencies=usd";
   var response = await fetch(apiUrl);
   var data = await response.json();
@@ -170,6 +174,7 @@ function finishRow(button) {
   var firstprice = row.cells[2].innerHTML;
   var currentPrice = row.cells[3].innerHTML;
   var leverage = row.cells[4].innerHTML;
+  var yon = row.cells[5].innerHTML;
   var profit = row.cells[6].innerHTML;
   // var profitRate = row.cells[5].innerHTML;
   
@@ -179,6 +184,7 @@ function finishRow(button) {
     miktar: miktar,
     firstprice: firstprice,
     leverage: leverage,
+    yon:yon,
     currentPrice: currentPrice,
     profit: profit,
     // profitRate: profitRate
