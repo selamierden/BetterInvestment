@@ -87,7 +87,7 @@ async function submitForm(){
 
   actionCell.innerHTML = '<button onclick="deleteRow(this)" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>';
   refreshCell.innerHTML = '<button onclick="refreshRow(this)" id="rbtn" class="btn btn-outline-primary"><i class="fas fa-sync-alt"></i></button>';
-  finishCell.innerHTML = '<button onclick="finishRow(this)" class="btn btn-success">Sold<i class="fas fa-check"></i></button>';
+  finishCell.innerHTML = '<button onclick="finishRow(this)" class="d-flex align-items-baseline btn btn-outline-success">Sold<i class="fas fa-check"></i></button>';
 
   updateBalance();
 };
