@@ -251,7 +251,7 @@ function deleteRow(button) {
   var cspots = JSON.parse(localStorage.getItem("cspots"));
   var index = -1;
   for (var i = 0; i < cspots.length; i++) {
-  if (cspots[i].coin === coin && cspots[i].miktar === miktar && cspots[i].firstprice === firstprice && cspots[i].leverage === leverage) {
+  if (cspots[i].coin === coin && cspots[i].miktar === miktar && cspots[i].firstprice === firstprice && cspots[i].leverage === leverage && cspots[i].yon === yon) {
   index = i;
   break;
   }
@@ -329,7 +329,7 @@ window.onload = async function() {
 
       actionCell.innerHTML = '<button onclick="deleteRow(this)" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>';
       refreshCell.innerHTML = '<button onclick="refreshRow(this)" id="rbtn" class="btn btn-outline-primary"><i class="fas fa-sync-alt"></i></button>';
-      finishCell.innerHTML = '<button onclick="finishRow(this)" class="btn btn-success">Sold<i class="fas fa-check"></i></button>';
+      finishCell.innerHTML = '<button onclick="finishRow(this)" class="d-flex align-items-baseline btn btn-outline-success">Sold<i class="fas fa-check"></i></button>';
 
       var coin = cspots[i].coin;
       var miktar = cspots[i].miktar;
