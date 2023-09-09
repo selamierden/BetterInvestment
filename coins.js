@@ -18,6 +18,7 @@ function updateData() {
         const price = coin.current_price;
         const change = coin.price_change_percentage_24h.toFixed(2);
         const volume = coin.total_volume.toLocaleString();
+        const rank = coin.market_cap_rank;
 
         const row = document.createElement("tr");
         row.classList.add("reg");
@@ -26,7 +27,7 @@ function updateData() {
         const changeColor = parseFloat(change) >= 0 ? "green" : "red";
 
         row.innerHTML = `
-          <td>${index + 1}</td>
+          <td>${rank}</td>
           <td>${symbol}</td>
           <td><img src="${image}" width="25" height="25" alt="${name}"></td>
           <td>$${price}</td>
@@ -39,5 +40,4 @@ function updateData() {
     .catch((error) => console.error(error));
 }
 
-// Call updateData() every second
-setInterval(updateData, 1000);
+setInterval(updateData, 45000);

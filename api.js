@@ -33,4 +33,4 @@ $(document).ready(function () {
 });
 
 // Fiyatları 10 saniyede bir güncelle
-setInterval(updatePrices, 10000);
+setInterval(updatePrices, 45000);
