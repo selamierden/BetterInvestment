@@ -1,7 +1,7 @@
 function updateData() {
   // Coingecko API endpoint for top 50 coins
   const url =
-    "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=200&page=1&sparkline=false";
+    "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=200&page=1&sparkline=false&price_change_percentage=24h";
 
   // Send GET request to Coingecko API
   fetch(url)
@@ -16,15 +16,21 @@ function updateData() {
         const symbol = coin.symbol.toUpperCase();
         const image = coin.image;
         const price = coin.current_price;
+        const change = coin.price_change_percentage_24h.toFixed(2);
         const volume = coin.total_volume.toLocaleString();
 
         const row = document.createElement("tr");
         row.classList.add("reg");
+
+        // Determine text color based on change value
+        const changeColor = parseFloat(change) >= 0 ? "green" : "red";
+
         row.innerHTML = `
           <td>${index + 1}</td>
           <td>${symbol}</td>
           <td><img src="${image}" width="25" height="25" alt="${name}"></td>
           <td>$${price}</td>
+          <td style="color: ${changeColor};">${change}%</td>
           <td>$${volume}</td>
         `;
         document.getElementById("coin-data").appendChild(row);
