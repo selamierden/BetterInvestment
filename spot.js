@@ -251,7 +251,7 @@ function deleteRow(button) {
   var cspots = JSON.parse(localStorage.getItem("cspots"));
   var index = -1;
   for (var i = 0; i < cspots.length; i++) {
-  if (cspots[i].coin === coin && cspots[i].miktar === miktar && cspots[i].firstprice === firstprice && cspots[i].leverage === leverage && cspots[i].yon === yon) {
+  if (cspots[i].coin === coin ) {
   index = i;
   break;
   }
