@@ -11,7 +11,7 @@ function updateData() {
       document.getElementById("coin-data").innerHTML = "";
 
       // Loop through top 50 coins and add data to HTML
-      data.forEach((coin, index) => {
+      data.forEach((coin) => {
         const name = coin.name;
         const symbol = coin.symbol.toUpperCase();
         const image = coin.image;
