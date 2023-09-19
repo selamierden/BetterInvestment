@@ -1,6 +1,3 @@
-// API adresi
-const apiUrl = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin%2Cethereum%2Cripple%2Ccardano%2Cdogecoin%2Csolana%2Cbinancecoin%2Ctron';
-
 const coins = [
   { id: 'bitcoin', selector: '#btc-price' },
   { id: 'ethereum', selector: '#eth-price' },
@@ -12,25 +9,31 @@ const coins = [
   { id: 'tron', selector: '#tron-price' }
 ];
 
-function updatePrices() {
-  $.getJSON(apiUrl)
-    .then(function (data) {
-      coins.forEach(function (coin) {
-        var coinData = data.find(function (item) { return item.id === coin.id; });
-        var price = coinData.current_price;
-        var change = coinData.price_change_percentage_10s;
-        $(coin.selector).text('$' + price.toLocaleString()).css('color', change >= 0 ? 'green' : 'green');
-      });
-    })
-    .fail(function () {
-      console.log('API isteği başarısız oldu');
-    });
+async function getApiData() {
+  const apiUrl = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin%2Cethereum%2Cripple%2Ccardano%2Cdogecoin%2Csolana%2Cbinancecoin%2Ctron&price_change_percentage=24h';
+  
+  const response = await fetch(apiUrl);
+  const data = await response.json();
+  return data;
 }
 
-// Sayfa yüklendiğinde fiyatları güncelle
-$(document).ready(function () {
-  updatePrices();
-});
+async function updatePrices() {
+  try {
+    const data = await getApiData();
 
-// Fiyatları 10 saniyede bir güncelle
+    coins.forEach(coin => {
+      const coinData = data.find(item => item.id === coin.id);
+      const price = coinData.current_price;
+      const change = coinData.price_change_percentage_24h;
+
+      document.querySelector(coin.selector).textContent = `$${price.toLocaleString()}`;
+      document.querySelector(coin.selector).style.color = change >= 0 ? 'green' : 'red';
+    });
+  } catch (error) {
+    console.log('API request failed', error);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', updatePrices);
+
 setInterval(updatePrices, 45000);
