@@ -1,4 +1,4 @@
-const loader = document.getElementsByClassName("loader");
+const loaders = document.getElementsByClassName("loader");
 
 const coinsService = {
   async getCoins(){
@@ -16,10 +16,10 @@ const tableService = {
     const coinDataTable = document.getElementById("coin-data");
     coinDataTable.innerHTML = "";
 
-    if (loader) {
-      loader.style.display = "block";
-    }
-
+    for (let i = 0; i < loaders.length; i++) {
+      loaders[i].style.display = "none";
+    } 
+    
     coins.forEach((coin) => {
       const name = coin.name;
       const symbol = coin.symbol.toUpperCase();

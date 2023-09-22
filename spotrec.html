@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.3.1/css/hover-min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="clear.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -76,7 +77,7 @@
     <div class="container mt-5" style="color: midnightblue; font-weight: 600;">
         <h1 class="mb-4">Spot Purchase Records</h1>
         <form>
-          <div class="row mb-3" style="display: flex; align-items: flex-end;">
+          <div class="row mb-3" style="display: flex; align-items: flex-end; flex-wrap: nowrap;">
             <div class="col-md-2">
               <label for="coin">Cryptocurrency:</label>
               <input type="text" class="form-control" id="coin">
@@ -131,7 +132,9 @@
         </table>
         <div style="font-size: 17px; color: white; background-color: green; margin-top: 10px; padding: 8px; border-radius: 4px; text-align: center;" id="pl">Current PNL: $0.00</div>
         <div style="font-size: 17px; color: white; background-color: midnightblue; margin-top: 10px; padding: 8px; border-radius: 4px; text-align: center;" id="bakiye">Current Balance: $0.00</div>
-        <button id="clearbtn" type="button" onclick="clearTable()" class="btn btn-danger">Clear Table</button>
+        <br><button id="clearbtn" onclick="clearTable()" class="button">
+          <svg viewBox="0 0 448 512" class="svgIcon"><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"></path></svg>
+        </button>
       </div><br>
 
     <script src="spotrec.js"></script>
