@@ -285,13 +285,15 @@ function clearTable() {
   }
 
   localStorage.removeItem("cspots");
+
+  updateBalance();
 };
 
-window.onload = async function() {
-  var cspots = JSON.parse(localStorage.getItem("cspots"));
-  if (cspots !== null) {
-    var table = document.getElementById("table");
-    for (var i = 0; i < cspots.length; i++) {
+function populateTableFromLocalStorage(data, tableId) {
+  var table = document.getElementById(tableId);
+
+  if (data !== null) {
+    for (var i = 0; i < data.length; i++) {
       var row = table.insertRow(-1);
       var coinCell = row.insertCell(0);
       var miktarCell = row.insertCell(1);
@@ -305,55 +307,69 @@ window.onload = async function() {
       var refreshCell = row.insertCell(9);
       var finishCell = row.insertCell(10);
 
-      coinCell.innerHTML = cspots[i].coin;
-      miktarCell.innerHTML = cspots[i].miktar;
-      firstpriceCell.innerHTML = cspots[i].firstprice;
-      leverageCell.innerHTML = cspots[i].leverage;
-      yonCell.innerHTML = cspots[i].yon;
+      coinCell.innerHTML = data[i].coin;
+      miktarCell.innerHTML = data[i].miktar;
+      firstpriceCell.innerHTML = data[i].firstprice;
+      leverageCell.innerHTML = data[i].leverage;
+      yonCell.innerHTML = data[i].yon;
 
       actionCell.innerHTML = '<button onclick="deleteRow(this)" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>';
       refreshCell.innerHTML = '<button onclick="refreshRow(this)" id="rbtn" class="btn btn-outline-primary"><i class="fas fa-sync-alt"></i></button>';
       finishCell.innerHTML = '<button onclick="finishRow(this)" class="d-flex align-items-baseline btn btn-outline-success">Sold<i class="fas fa-check"></i></button>';
 
-      var coin = cspots[i].coin;
-      var miktar = cspots[i].miktar;
-      var firstprice = cspots[i].firstprice;
-      var leverage = cspots[i].leverage;
-      var yon = cspots[i].yon;
+      var coin = data[i].coin;
+      var miktar = data[i].miktar;
+      var firstprice = data[i].firstprice;
+      var leverage = data[i].leverage;
+      var yon = data[i].yon;
 
       // Retrieve the current price of the coin from Coingecko API
       var apiUrl = "https://api.coingecko.com/api/v3/simple/price?ids=" + coin + "&vs_currencies=usd";
-      var response = await fetch(apiUrl);
-      var data = await response.json();
-      var currentPrice = data[coin.toLowerCase()].usd;
 
-      if(yon === "Long"){
-        var profit = ((currentPrice / firstprice) * miktar - miktar) * leverage;
-        var profitRate = (profit / miktar) * 100;
-      } else {
-        var profit = -1 * (((currentPrice / firstprice) * miktar - miktar) * leverage);
-        var profitRate = (profit / miktar) * 100;
-      }
+      (async function () {
+        var response = await fetch(apiUrl);
+        var responseData = await response.json();
+        var currentPrice = responseData[coin.toLowerCase()].usd;
 
-      currentpriceCell.innerHTML = currentPrice;
-      profitCell.innerHTML = profit.toFixed(2);
-      profitRateCell.innerHTML = profitRate.toFixed(2) + "%";
+        if (yon === "Long") {
+          var profit = ((currentPrice / firstprice) * miktar - miktar) * leverage;
+          var profitRate = (profit / miktar) * 100;
+        } else {
+          var profit = -1 * (((currentPrice / firstprice) * miktar - miktar) * leverage);
+          var profitRate = (profit / miktar) * 100;
+        }
 
-      // Set the color of the profitRateCell based on the value
-      if (profitRate > 0) {
-        profitRateCell.style.color = "green";
-      } else if (profitRate < 0) {
-        profitRateCell.style.color = "red";
-      }
+        currentpriceCell.innerHTML = currentPrice;
+        profitCell.innerHTML = profit.toFixed(2);
+        profitRateCell.innerHTML = profitRate.toFixed(2) + "%";
 
-      if (profit > 0) {
-        profitCell.style.color = "green";
-      } else if (profit < 0) {
-        profitCell.style.color = "red";
-      }
+        // Set the color of the profitRateCell based on the value
+        if (profitRate > 0) {
+          profitRateCell.style.color = "green";
+        } else if (profitRate < 0) {
+          profitRateCell.style.color = "red";
+        }
+
+        if (profit > 0) {
+          profitCell.style.color = "green";
+        } else if (profit < 0) {
+          profitCell.style.color = "red";
+        }
+      })();
     }
   }
+}
 
+window.onload = function () {
+  // Get the "cspots" data from localStorage and populate the table
+  var cspots = JSON.parse(localStorage.getItem("cspots"));
+  populateTableFromLocalStorage(cspots, "table");
+
+  // Get the "sold" data from localStorage and populate the table
+  var sold = JSON.parse(localStorage.getItem("sold"));
+  populateTableFromLocalStorage(sold, "table");
+
+  // Update the balance after populating the tables
   updateBalance();
 };
 

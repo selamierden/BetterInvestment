@@ -54,8 +54,10 @@ function submitForm(){
     
     profitCell.innerHTML = profit;
     actionCell.innerHTML = '<button onclick="deleteRow(this)" class="btn btn-outline-danger"><i class="bi bi-trash"></i>Sil</button>';
+
+    updateBalance()
     
-  };
+};
   
   function deleteRow(button) {
     // Get the row that the button is in
@@ -86,7 +88,9 @@ function submitForm(){
     spots.splice(index, 1);
     localStorage.setItem("spots", JSON.stringify(spots));
     }
-  };
+
+    updateBalance()
+};
   
   function clearTable() {
     var table = document.getElementById("table");
@@ -96,15 +100,45 @@ function submitForm(){
     }
   
     localStorage.removeItem("spots");
-  };
-  
-  
-  window.onload = function() {
-    // Get the "spots" data from localStorage and populate the table
+
+    updateBalance()
+};
+
+  function updateBalance() {
     var spots = JSON.parse(localStorage.getItem("spots"));
+    var currentProfit = 0;
+    var currentBalance = 0;
+  
     if (spots !== null) {
-      var table = document.getElementById("table");
       for (var i = 0; i < spots.length; i++) {
+        currentBalance += parseFloat(spots[i].miktar); // Convert the miktar to a number
+      }
+    }
+  
+    if (spots !== null) {
+      for (var i = 0; i < spots.length; i++) {
+        currentProfit += parseFloat(spots[i].profit); // Convert the profit to a number
+      }
+    }
+  
+    var walletPrice = currentBalance + currentProfit;
+  
+    var balanceDiv = document.getElementById("bakiye");
+    balanceDiv.textContent = "Current Balance : " + walletPrice.toFixed(3) + "$";
+  
+    var pnlDiv = document.getElementById("pl");
+    pnlDiv.textContent = "Current PNL : " + currentProfit.toFixed(2) + "$";
+};
+
+  document.addEventListener("DOMContentLoaded", function() {
+    updateBalance();
+});
+  
+  function populateTableFromLocalStorage(data, tableId) {
+    var table = document.getElementById(tableId);
+  
+    if (data !== null) {
+      for (var i = 0; i < data.length; i++) {
         var row = table.insertRow(-1);
         var coinCell = row.insertCell(0);
         var miktarCell = row.insertCell(1);
@@ -114,52 +148,32 @@ function submitForm(){
         var yonCell = row.insertCell(5);
         var profitCell = row.insertCell(6);
         var actionCell = row.insertCell(7);
-        coinCell.innerHTML = spots[i].coin;
-        miktarCell.innerHTML = spots[i].miktar;
-        firstpriceCell.innerHTML = spots[i].firstprice;
-        currentPriceCell.innerHTML = spots[i].currentPrice;
-        leverageCell.innerHTML = spots[i].leverage;
-        yonCell.innerHTML = spots[i].yon;
-        profitCell.innerHTML = spots[i].profit;
-        if (spots[i].profit >= 0) {
+  
+        coinCell.innerHTML = data[i].coin;
+        miktarCell.innerHTML = data[i].miktar;
+        firstpriceCell.innerHTML = data[i].firstprice;
+        currentPriceCell.innerHTML = data[i].currentPrice;
+        leverageCell.innerHTML = data[i].leverage;
+        yonCell.innerHTML = data[i].yon;
+        profitCell.innerHTML = data[i].profit;
+  
+        if (data[i].profit >= 0) {
           profitCell.style.color = 'green';
         } else {
           profitCell.style.color = 'red';
         }
+  
         actionCell.innerHTML = '<button onclick="deleteRow(this)" class="btn btn-outline-danger"><i class="bi bi-trash"></i>Sil</button>';
       }
     }
+};
   
-    // Get the "sold" data from localStorage and populate the table
+  window.onload = function () {
+    var spots = JSON.parse(localStorage.getItem("spots"));
+    populateTableFromLocalStorage(spots, "table");
+  
     var sold = JSON.parse(localStorage.getItem("sold"));
-    if (sold !== null) {
-      var table = document.getElementById("table");
-      for (var i = 0; i < sold.length; i++) {
-        var row = table.insertRow(-1);
-        var coinCell = row.insertCell(0);
-        var miktarCell = row.insertCell(1);
-        var firstpriceCell = row.insertCell(2);
-        var currentPriceCell = row.insertCell(3);
-        var leverageCell = row.insertCell(4);
-        var yonCell = row.insertCell(5);
-        var profitCell = row.insertCell(6);
-        var actionCell = row.insertCell(7);
-        coinCell.innerHTML = sold[i].coin;
-        miktarCell.innerHTML = sold[i].miktar;
-        firstpriceCell.innerHTML = sold[i].firstprice;
-        currentPriceCell.innerHTML = sold[i].currentPrice;
-        leverageCell.innerHTML = sold[i].leverage;
-        yonCell.innerHTML = sold[i].yon;
-        profitCell.innerHTML = sold[i].profit;
-        if (sold[i].profit >= 0) {
-          profitCell.style.color = 'green';
-        } else {
-          profitCell.style.color = 'red';
-        }
-        // actionCell.innerHTML = '<button onclick="deleteRow(this)" class="btn btn-outline-danger"><i class="bi bi-trash"></i>Sil</button>';
-      }
-    }
-  };
-  
-  
+    populateTableFromLocalStorage(sold, "table");
+};
+
   

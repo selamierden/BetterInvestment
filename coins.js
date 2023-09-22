@@ -16,7 +16,9 @@ const tableService = {
     const coinDataTable = document.getElementById("coin-data");
     coinDataTable.innerHTML = "";
 
-    loader.style.display = "block";
+    if (loader) {
+      loader.style.display = "block";
+    }
 
     coins.forEach((coin) => {
       const name = coin.name;
