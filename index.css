@@ -1,0 +1,18 @@
+#currency-select {
+    background-color: black;
+    margin-bottom: 7px;
+}
+
+.coinmarketcap-currency-widget {
+    color: white    ;
+    background-color: black;
+    width: 300px;
+    margin: 8px;
+}
+
+#widget-cointainer {
+    max-width: 1600px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
